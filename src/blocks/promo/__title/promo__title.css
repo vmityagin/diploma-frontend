@@ -1,0 +1,22 @@
+.promo__title {
+  max-width: 730px;
+  min-width: 300px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  color: #FFFFFF;
+  text-align: center;
+  position: absolute;
+  z-index: 1;
+}
+
+@media screen and (max-width: 425px) {
+  .promo__title {
+    max-width: 530px;
+    font-size: 31px;
+    line-height: 39px;
+    letter-spacing: -0.04em;
+  }
+}

@@ -6,3 +6,7 @@
 @import url('./blocks/header/__login/header__login.css');
 @import url('./blocks/header/__register/header__register.css');
 @import url('./blocks/header/__logo/header__logo.css');
+@import url('./blocks/promo/promo.css');
+@import url('./blocks/promo/__background/promo__background.css');
+@import url('./blocks/promo/__image/promo__image.css');
+@import url('./blocks/promo/__title/promo__title.css');
