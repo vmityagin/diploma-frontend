@@ -10,3 +10,7 @@
 @import url('./blocks/promo/__background/promo__background.css');
 @import url('./blocks/promo/__image/promo__image.css');
 @import url('./blocks/promo/__title/promo__title.css');
+@import url('./blocks/navigation/navigation.css');
+@import url('./blocks/table/table.css');
+@import url('./blocks/table/__cell/table__cell.css');
+@import url('./blocks/table/__heading/table__heading.css');
