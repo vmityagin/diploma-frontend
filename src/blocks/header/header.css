@@ -6,3 +6,17 @@
   justify-content: space-between;
   padding: 18px 70px;
 }
+
+@media screen and (max-width: 768px)  {
+  .header {
+    padding: 18px 30px;
+    height: 38px;
+  }
+}
+
+@media screen and (max-width: 425px)  {
+  .header {
+    padding: 18px 14px;
+    height: 38px;
+  }
+}

@@ -8,3 +8,10 @@
   text-decoration: none;
   margin-right: 30px;
 }
+
+@media screen and (max-width: 425px)  {
+  .header__register {
+    margin-right: 14px;
+    font-size: 10px;
+  }
+}

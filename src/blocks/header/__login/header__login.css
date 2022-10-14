@@ -12,3 +12,11 @@
   font-size: 12px;
   line-height: 16px;
 }
+
+@media screen and (max-width: 425px)  {
+  .header__login {
+    width: 54px;
+    height: 26px;
+    font-size: 10px;
+  }
+}
