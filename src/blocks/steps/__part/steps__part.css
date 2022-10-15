@@ -1,0 +1,12 @@
+.steps__part {
+  list-style: none;
+  display: grid;
+  grid-template-rows: repeat(auto-fit, minmax(48px, 1fr));
+  gap: 22px;
+}
+
+@media screen and (max-width: 550px) {
+  .steps__part {
+    gap: 16px;
+  }
+}

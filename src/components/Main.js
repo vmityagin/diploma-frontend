@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import Promo from './Main/Promo';
 import NavTab from './Main/NavTab';
+import AboutProject from './Main/AboutProject';
 
 function Main() {
     return (
@@ -9,6 +10,7 @@ function Main() {
         <Header link="/signin" />
         <Promo />
         <NavTab />
+        <AboutProject />
       </main>
     );
   }

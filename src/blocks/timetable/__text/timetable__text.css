@@ -1,0 +1,21 @@
+.timetable__text {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+
+  margin: 14px auto 0;
+
+  color: #A0A0A0;
+}
+
+@media screen and (max-width: 550px) {
+  .timetable__text {
+    font-size: 11px;
+    line-height: 13px;
+    margin: 10px auto 0;
+  }
+}
+

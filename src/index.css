@@ -14,3 +14,15 @@
 @import url('./blocks/table/table.css');
 @import url('./blocks/table/__cell/table__cell.css');
 @import url('./blocks/table/__heading/table__heading.css');
+@import url('./blocks/about/about.css');
+@import url('./blocks/about/__header/about__header.css');
+@import url('./blocks/steps/steps.css');
+@import url('./blocks/steps/__part/steps__part.css');
+@import url('./blocks/steps/__heading/steps__heading.css');
+@import url('./blocks/steps/__text/steps__text.css');
+@import url('./blocks/timetable/timetable.css');
+@import url('./blocks/timetable/__part/timetable__part.css');
+@import url('./blocks/timetable/__heading/timetable__heading.css');
+@import url('./blocks/timetable/__firstRectangle/timetable__firstRectangle.css');
+@import url('./blocks/timetable/__secondRectangle/timetable__secondRectangle.css');
+@import url('./blocks/timetable/__text/timetable__text.css');
