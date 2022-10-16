@@ -1,4 +1,4 @@
-.techs__header {
+.block-header {
   margin: 0 70px;
   width: 100%;
   min-height: 51px;
@@ -13,7 +13,7 @@
 }
 
 @media screen and (max-width: 550px) {
-  .techs__header {
+  .block-header {
     margin: 0 18px;
     font-size: 18px;
     line-height: 22px;

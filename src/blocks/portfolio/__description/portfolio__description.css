@@ -1,0 +1,16 @@
+.portfolio__description {
+  margin: 66px auto 100px;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 767px) {
+  .portfolio__description {
+    flex-direction: column-reverse;
+    margin: 60px auto 70px;
+  }
+}

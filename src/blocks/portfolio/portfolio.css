@@ -1,0 +1,14 @@
+.portfolio {
+  padding: 110px 70px 100px;
+  min-height: 1079px;
+  max-width: 1140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (max-width: 425px) {
+  .portfolio {
+    padding: 70px 14px;
+  }
+}

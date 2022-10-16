@@ -1,0 +1,17 @@
+.portfolio__link {
+  margin: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+
+  color: #000000;
+}
+
+@media screen and (max-width: 767px) {
+  .portfolio__link {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
