@@ -1,5 +1,6 @@
 import React from 'react';
 import avatar from '../../images/portfolio__image.jpg';
+import buttonArrow from '../../images/portfolio__button.svg';
 
 function Portfolio() {
   return (
@@ -33,6 +34,20 @@ function Portfolio() {
 
       <div className="portfolio__links">
         <h5 className="portfolio__subtext">Портфолио</h5>
+        <ul className="portfolio__results">
+          <li className="portfolio__result">
+            <p className="portfolio__title">Статичный сайт</p>
+            <img className="portfolio__button" src={buttonArrow} alt="Иконка перехода на сайт"/>
+          </li>
+          <li className="portfolio__result">
+            <p className="portfolio__title">Адаптивный сайт</p>
+            <img className="portfolio__button" src={buttonArrow} alt="Иконка перехода на сайт"/>
+          </li>
+          <li className="portfolio__result noborder">
+            <p className="portfolio__title">Одностраничное приложение</p>
+            <img className="portfolio__button" src={buttonArrow} alt="Иконка перехода на сайт"/>
+          </li>
+        </ul>
       </div>
 
     </section>
