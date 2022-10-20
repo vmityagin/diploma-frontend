@@ -10,7 +10,7 @@ function Movies() {
       <section className="page">
         <Header />
         <SearchForm />
-        <MoviesCardList typeButton="like" />
+        <MoviesCardList typeButton="cross" />
         <Preloader />
         <Footer />
       </section>

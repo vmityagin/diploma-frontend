@@ -1,13 +1,13 @@
 import React from 'react';
 import MoviesCard from './MoviesCard';
 
-function MoviesCardList() {
+function MoviesCardList({ typeButton }) {
   return (
     <section className="MoviesCardList">
       <ul className="MoviesElements">
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
+        <MoviesCard typeButton={typeButton} />
+        <MoviesCard typeButton={typeButton} />
+        <MoviesCard typeButton={typeButton} />
       </ul>
     </section>
   );
