@@ -1,0 +1,17 @@
+.preloader__button {
+  display: flex;
+  justify-content: center;
+  margin: 50px auto 80px;
+  padding: 0;
+  width: 320px;
+  height: 36px;
+  border: 1px solid #E8E8E8;
+  background-color: transparent;
+  border-radius: 6px;
+}
+
+@media screen and (max-width: 450px) {
+  .preloader__button {
+    width: 240px;
+  }
+}

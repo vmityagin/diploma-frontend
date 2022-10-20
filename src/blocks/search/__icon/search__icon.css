@@ -1,0 +1,11 @@
+.search__icon {
+  width: 34px;
+  height: 34px;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 450px) {
+  .search__icon {
+    display: none;
+  }
+}
