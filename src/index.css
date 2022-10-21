@@ -47,7 +47,6 @@
 @import url('./blocks/portfolio/__result/portfolio__result.css');
 @import url('./blocks/portfolio/__title/portfolio__title.css');
 @import url('./blocks/portfolio/__button/portfolio__button.css');
-@import url('./blocks/noborder/noborder.css');
 @import url('./blocks/footer/footer.css');
 @import url('./blocks/footer/__box/footer__box.css');
 @import url('./blocks/footer/__project/footer__project.css');
@@ -73,3 +72,13 @@
 @import url('./blocks/preloader/preloader.css');
 @import url('./blocks/preloader/__button/preloader__button.css');
 @import url('./blocks/preloader/__name/preloader__name.css');
+@import url('./blocks/profile/profile.css');
+@import url('./blocks/profile/__header/profile__header.css');
+@import url('./blocks/profile/__about/profile__about.css');
+@import url('./blocks/profile/__box/profile__box.css');
+@import url('./blocks/profile/__caption/profile__caption.css');
+@import url('./blocks/profile/__info/profile__info.css');
+@import url('./blocks/profile/__button/profile__button.css');
+@import url('./blocks/profile/__edit/profile__edit.css');
+@import url('./blocks/profile/__logout/profile__logout.css');
+@import url('./blocks/noborder/noborder.css');

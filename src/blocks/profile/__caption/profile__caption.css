@@ -1,0 +1,12 @@
+.profile__caption {
+  margin: 0;
+  padding: 0;
+  width: 141px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+
+  color: #000000;
+}
