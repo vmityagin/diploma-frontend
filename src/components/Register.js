@@ -1,13 +1,16 @@
 import React from "react";
-import Header from "./Header";
-import Footer from './Footer';
+import AuthForm from "../components/AuthForm";
+import authLogo from "../images/header__logo.svg"
 
 function Register() {
 
   return (
     <section className="auth">
-      <Header linkName="Вход" userLogin="" link="/signin" />
-      <Footer />
+      <div className="auth__header">
+        <img className="auth__logo" src={authLogo} alt="логотип сайта"/>
+        <h1 className="auth__title">Добро пожаловать</h1>
+      </div>
+      <AuthForm typeName="register" buttonText="Зарегистрироваться" />
     </section>
   );
 }

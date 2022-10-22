@@ -1,10 +1,11 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Main from '../Main';
 import Movies from '../Movies';
 import SaviedMovies from '../SaviedMovies';
 import Profile from '../Profile';
 import Register from '../Register';
 import Login from '../Login';
+import PageNotFound from '../PageNotFound';
 
 function App() {
   return (
@@ -27,6 +28,10 @@ function App() {
       <Route path="/signin">
         <Login />
       </Route>
+      <Route path="/404" >
+        <PageNotFound />
+      </Route>
+      <Redirect to="/404" />
     </Switch>
   );
 }

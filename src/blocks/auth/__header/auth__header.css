@@ -1,0 +1,9 @@
+.auth__header {
+  margin: 0 auto;
+  padding: 70px 0 40px;
+  max-width: 396px;
+  display: flex;
+  justify-content: center;
+  align-items:flex-start;
+  flex-direction: column;
+}
