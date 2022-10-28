@@ -1,0 +1,11 @@
+.nav_login {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+  .nav_login {
+    display: none;
+  }
+}

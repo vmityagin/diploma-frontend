@@ -1,0 +1,23 @@
+.header {
+  max-width: 1140px;
+  height: 100%;
+  background-color: #5C5C5C;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 70px;
+}
+
+@media screen and (max-width: 768px)  {
+  .header {
+    padding: 18px 30px;
+    height: 38px;
+  }
+}
+
+@media screen and (max-width: 425px)  {
+  .header {
+    padding: 18px 14px;
+    height: 38px;
+  }
+}

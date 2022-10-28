@@ -1,0 +1,14 @@
+.timetable {
+  margin: 0 70px;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+
+@media screen and (max-width: 550px) {
+  .timetable {
+    grid-template-columns: 34% 64%;
+  }
+}

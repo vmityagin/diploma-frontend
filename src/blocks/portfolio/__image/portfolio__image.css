@@ -1,0 +1,18 @@
+.portfolio__image {
+  width: 270px;
+  height: 327px;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 767px) {
+  .portfolio__image {
+    margin: 0 0 40px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .portfolio__image {
+    width: 292px;
+    height: 352px;
+  }
+}

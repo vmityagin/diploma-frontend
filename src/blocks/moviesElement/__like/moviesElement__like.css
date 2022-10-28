@@ -1,0 +1,13 @@
+.moviesElement__like {
+  background-image: url('../../../images/moviesElement__like.svg');
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  object-fit: cover;
+  object-position: center;
+  background-color: unset;
+  width: 14px;
+  height: 12px;
+  padding: 0;
+  border: 0;
+  margin: 0;
+}

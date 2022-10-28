@@ -1,0 +1,12 @@
+.form__text {
+  padding: 0;
+  margin: 0 auto 10px;
+  width: 100%;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+
+  color: #A0A0A0;
+}

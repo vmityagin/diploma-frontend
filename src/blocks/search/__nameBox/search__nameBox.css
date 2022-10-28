@@ -1,0 +1,16 @@
+.search__nameBox {
+  margin: 0 0 0 12px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+
+  color: #000000;
+}
+
+@media screen and (max-width: 450px) {
+  .search__nameBox {
+    font-size: 11px;
+  }
+}

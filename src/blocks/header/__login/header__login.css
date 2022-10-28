@@ -1,0 +1,22 @@
+.header__login {
+  padding: 0;
+  width: 76px;
+  height: 32px;
+  background: #2BE080;
+  border-radius: 3px;
+  border: none;
+  text-decoration: #000000;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+@media screen and (max-width: 425px)  {
+  .header__login {
+    width: 54px;
+    height: 26px;
+    font-size: 10px;
+  }
+}

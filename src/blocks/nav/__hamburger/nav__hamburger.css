@@ -1,0 +1,15 @@
+.nav__hamburger {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 425px) {
+  .nav__hamburger {
+    width: 40px;
+    height: 40px;
+  }
+}

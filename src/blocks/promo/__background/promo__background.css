@@ -1,0 +1,22 @@
+.promo__background {
+  background-color: #5C5C5C;
+  max-width: 1280px;
+  height: 524px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .promo__background {
+    height: 784px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .promo__background {
+    height: 570px;
+  }
+}
+

@@ -1,0 +1,19 @@
+.nav__account {
+  list-style: none;
+  width: 183px;
+  height: 32px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@media screen and (max-width: 425px) {
+  .nav__account {
+    width: 132px;
+    height: 26px;
+  }
+
+}

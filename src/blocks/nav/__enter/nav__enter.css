@@ -1,0 +1,28 @@
+.nav__enter {
+  padding: 8px 20px;
+  margin: 0;
+  width: 76px;
+  height: 32px;
+  background: #2BE080;
+  border-radius: 3px;
+  border: none;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+
+  color: #000000;
+}
+
+
+@media screen and (max-width: 425px) {
+  .nav__enter {
+    width: 54px;
+    height: 26px;
+    font-size: 10px;
+    padding: 5px 12px;
+  }
+
+}
