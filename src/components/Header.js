@@ -10,7 +10,9 @@ function Header({ handleSignOut, isLoggedIn}) {
     <>
       { !isLoggedIn ?
         <header className="header">
-          <img className="header__logo" src={header__logo} alt="логотип дипломной работы"/>
+          <NavLink to="/">
+            <img className="header__logo" src={header__logo} alt="логотип дипломной работы"/>
+          </NavLink>
           <nav className="header__nav nav">
 
             <ul className="nav__account">
@@ -30,7 +32,9 @@ function Header({ handleSignOut, isLoggedIn}) {
         </header>
         :
         <header className="header header_login">
-          <img className="header__logo" src={header__logo} alt="логотип дипломной работы"/>
+          <NavLink to="/">
+            <img className="header__logo" src={header__logo} alt="логотип дипломной работы"/>
+          </NavLink>
           <nav className="header__nav nav_login">
 
             <ul className="nav__menu">
@@ -38,7 +42,7 @@ function Header({ handleSignOut, isLoggedIn}) {
                 <NavLink to="/movies" className="nav__movies">Фильмы</NavLink>
               </li>
               <li>
-                <NavLink to="/movies" className="nav__save-movies">Сохранённые фильмы</NavLink>
+                <NavLink to="/saved-movies" className="nav__save-movies">Сохранённые фильмы</NavLink>
               </li>
             </ul>
 

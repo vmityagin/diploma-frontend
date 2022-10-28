@@ -8,7 +8,9 @@ import Footer from './Footer';
 function Movies() {
     return (
       <section className="page">
-        <Header />
+        <Header
+          isLoggedIn="true"
+        />
         <SearchForm />
         <MoviesCardList typeButton="cross" />
         <Preloader />

@@ -1,9 +1,16 @@
 .auth__header {
   margin: 0 auto;
-  padding: 70px 0 40px;
+  padding: 0 0 40px;
   max-width: 396px;
   display: flex;
   justify-content: center;
   align-items:flex-start;
   flex-direction: column;
+}
+
+@media screen and (max-width: 425px) {
+  .auth__header {
+    max-width: 260px;
+    align-items: center;
+  }
 }

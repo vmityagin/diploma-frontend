@@ -16,3 +16,10 @@
 
   color: #FFFFFF;
 }
+
+@media screen and (max-width: 425px) {
+  .form__button {
+    padding: 15px 0;
+    width: 260px;
+  }
+}

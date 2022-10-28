@@ -4,7 +4,9 @@ import Header from './Header';
 function Movies() {
     return (
       <section className="page">
-        <Header />
+        <Header
+          isLoggedIn="true"
+        />
         <div className="profile">
           <h1 className="profile__header">Привет, Виталий!</h1>
 
