@@ -13,7 +13,11 @@ function Main() {
         <Header />
         <Promo />
         <NavTab />
+<<<<<<< HEAD
         <AboutProject/>
+=======
+        <AboutProject />
+>>>>>>> 15e22bb9ad80f7bcc43058c9ccd0896c603aeb7b
         <Techs />
         <Portfolio />
         <Footer />

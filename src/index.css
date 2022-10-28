@@ -1,6 +1,7 @@
 @import url('./vendor/normalize.css');
 @import url('./vendor/fonts/inter.css');
 @import url('./blocks/page/page.css');
+<<<<<<< HEAD
 
 @import url('./blocks/header/header.css');
 @import url('./blocks/header/__logo/header__logo.css');
@@ -21,6 +22,13 @@
 @import url('./blocks/nav/__save-movies/nav__save-movies.css');
 @import url('./blocks/header/__nav/header__nav.css');
 
+=======
+@import url('./blocks/header/header.css');
+@import url('./blocks/header/__navigation/header__navigation.css');
+@import url('./blocks/header/__login/header__login.css');
+@import url('./blocks/header/__register/header__register.css');
+@import url('./blocks/header/__logo/header__logo.css');
+>>>>>>> 15e22bb9ad80f7bcc43058c9ccd0896c603aeb7b
 @import url('./blocks/promo/promo.css');
 @import url('./blocks/block-header/block-header.css');
 @import url('./blocks/promo/__background/promo__background.css');

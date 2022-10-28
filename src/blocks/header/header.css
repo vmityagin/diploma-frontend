@@ -1,6 +1,10 @@
 .header {
+<<<<<<< HEAD
   max-width: 1140px;
   height: 100%;
+=======
+  height: 74px;
+>>>>>>> 15e22bb9ad80f7bcc43058c9ccd0896c603aeb7b
   background-color: #5C5C5C;
   display: flex;
   align-items: center;

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {NavLink} from 'react-router-dom';
 import header__logo from '../images/header__logo.svg';
 import header__account_icon from '../images/header__account_icon.svg';
@@ -63,3 +64,26 @@ function Header({ handleSignOut, isLoggedIn}) {
 }
 
   export default Header;
+=======
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import header__logo from '../images/header__logo.svg';
+
+function Header({ handleSignOut}) {
+  return (
+    <header className="header">
+      <img className="header__logo" src={header__logo} alt="Логотип диплома" />
+      <div className='header__navigation'>
+          <NavLink to="/films" className="header__register">
+            Регистрация
+          </NavLink>
+          <button onClick={handleSignOut} className="header__login">
+            Войти
+          </button>
+      </div>
+    </header>
+  );
+}
+  
+  export default Header;
+>>>>>>> 15e22bb9ad80f7bcc43058c9ccd0896c603aeb7b

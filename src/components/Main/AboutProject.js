@@ -2,7 +2,11 @@ import React from 'react';
 
 function AboutProject() {
   return (
+<<<<<<< HEAD
     <section className="about" id="about" name="about">
+=======
+    <section className="about">
+>>>>>>> 15e22bb9ad80f7bcc43058c9ccd0896c603aeb7b
       <h2 className="about__header block-header">
         О проекте
       </h2>

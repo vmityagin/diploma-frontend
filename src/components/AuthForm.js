@@ -1,5 +1,9 @@
 import React from "react";
+<<<<<<< HEAD
 import {NavLink} from 'react-router-dom';
+=======
+import {Link} from 'react-router-dom';
+>>>>>>> 15e22bb9ad80f7bcc43058c9ccd0896c603aeb7b
 
 function AuthForm({ typeName, buttonText }) {
 
@@ -34,7 +38,11 @@ function AuthForm({ typeName, buttonText }) {
           minLength="6"
           maxLength="200"
           required
+<<<<<<< HEAD
         />
+=======
+        / >
+>>>>>>> 15e22bb9ad80f7bcc43058c9ccd0896c603aeb7b
 
         <p className="form__text">Пароль</p>
         <input
@@ -46,8 +54,13 @@ function AuthForm({ typeName, buttonText }) {
           minLength="6"
           maxLength="200"
           required
+<<<<<<< HEAD
         />
         <span className="form__input-error name-input-error form__input-error_active">
+=======
+        / >
+        <span class="form__input-error name-input-error form__input-error_active">
+>>>>>>> 15e22bb9ad80f7bcc43058c9ccd0896c603aeb7b
           Что-то пошло не так...
         </span>
       </div>
@@ -64,18 +77,30 @@ function AuthForm({ typeName, buttonText }) {
           <>
             <p className="form__bottom">
               Уже зарегистрированы?
+<<<<<<< HEAD
               <NavLink className="form__link" to="/signin">
                 Войти
               </NavLink>
+=======
+              <Link className="form__link" to="/signin">
+                Войти
+              </Link>
+>>>>>>> 15e22bb9ad80f7bcc43058c9ccd0896c603aeb7b
             </p>
           </>
           :
           <>
             <p className="form__bottom">
               Ещё не зарегистрированы?
+<<<<<<< HEAD
               <NavLink className="form__link" to="/signup">
                 Регистрация
               </NavLink>
+=======
+              <Link className="form__link" to="/signup">
+                Регистрация
+              </Link>
+>>>>>>> 15e22bb9ad80f7bcc43058c9ccd0896c603aeb7b
             </p>
           </>
         }
