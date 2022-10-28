@@ -1,5 +1,4 @@
 .header__logo {
-<<<<<<< HEAD
   padding: 0;
   margin: 0 40px 0 0;
   width: 38px;
@@ -7,8 +6,3 @@
   object-fit: cover;
   box-sizing: border-box;
 }
-=======
-  width: 38px;
-  height: 38px;
-}
->>>>>>> 15e22bb9ad80f7bcc43058c9ccd0896c603aeb7b
