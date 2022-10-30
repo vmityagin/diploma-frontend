@@ -10,10 +10,10 @@ function Footer() {
           </div>
           <ul className="footer__links">
             <li>
-              <p className="footer__link">Яндекс.Практикум</p>
+              <a className="footer__link">Яндекс.Практикум</a>
             </li>
             <li>
-              <p className="footer__link">Github</p>
+              <a className="footer__link">Github</a>
             </li>
           </ul>
         </div>

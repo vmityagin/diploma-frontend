@@ -1,5 +1,5 @@
 .form__button {
-  margin: 70px auto 16px;
+  margin: 70px auto 22px;
   padding: 13px 0;
   background: #2BE080;
   border-radius: 3px;
@@ -15,6 +15,10 @@
   text-align: center;
 
   color: #FFFFFF;
+}
+
+.form__button:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 425px) {

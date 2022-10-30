@@ -2,14 +2,14 @@ import React from 'react';
 import moviesPoster from '../../images/moviesElement__image.jpg';
 
 
-function MoviesCard({ typeButton }) {
+function MoviesCard({ typeButton, isLike }) {
   return (
     <li className="moviesElement">
       <div className="moviesElement__group">
         <h2 className="moviesElement__title">В погоне за Бенкси</h2>
         <p className="moviesElement__duration">1ч 42м</p>
         { typeButton === 'like' ?
-          <button className="moviesElement__like" type="button"></button>
+          <button className={`${isLike}` === 'true' ? 'moviesElement__like_active' : 'moviesElement__like'} type="button"></button>
           :
           <button className="moviesElement__cross" type="button"></button>
         }

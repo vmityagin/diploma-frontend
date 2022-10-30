@@ -6,3 +6,7 @@
   object-fit: cover;
   box-sizing: border-box;
 }
+
+.header__logo:hover {
+  opacity: 0.8;
+}

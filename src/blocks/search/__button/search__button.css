@@ -14,3 +14,7 @@
   margin: 0;
   padding: 0;
 }
+
+.search__button:hover {
+  opacity: 0.8;
+}

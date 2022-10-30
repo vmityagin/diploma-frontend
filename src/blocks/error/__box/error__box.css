@@ -1,0 +1,25 @@
+.error__box {
+  padding: 0;
+  margin: 246px auto 60px;
+
+  width: 300px;
+  height: 421px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@media screen and (max-width:768px) {
+  .error__box {
+    margin: 400px auto 60px;
+  }
+}
+
+@media screen and (max-width:425px) {
+  .error__box {
+    margin: 329px auto 30px;
+    justify-content: center;
+  }
+}

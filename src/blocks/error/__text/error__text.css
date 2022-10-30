@@ -11,3 +11,10 @@
 
   color: #000000;
 }
+
+@media screen and (max-width: 425px) {
+  .error__text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

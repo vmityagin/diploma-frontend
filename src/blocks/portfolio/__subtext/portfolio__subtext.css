@@ -9,3 +9,11 @@
 
   color: #A0A0A0;
 }
+
+
+@media screen and (max-width: 425px) {
+  .portfolio__subtext {
+    font-size: 14px;
+    margin: 0 0 39px;
+  }
+}

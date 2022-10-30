@@ -14,16 +14,11 @@ function Portfolio() {
           <h3 className="portfolio__name">Вячеслав</h3>
           <h4 className="portfolio__profession">Фронтенд-разработчик, 28 лет</h4>
           <p className="portfolio__about">
-            Я родился в Тольятти, а живу и работаю в Москве.
-            У меня есть жена и сын. Я занимаюсь плаванием, а ещё недавно увлекся катанием на скейтборде.
-            Сейчас работаю в маркетинге. Сайты - это мой рабочий инструмент. С их помощью мои клиенты зарабатывают деньги.
-            А я привлекаю им продажи. В 2022 году трудно быть просто маркетологом. Нужно разбираться в веб-аналитике и уметь ставить задачи разработчикам.
-            Это работает и для крупных корпораций, и для частного бизнеса. В первом случае с крупными командами надо говорить на одном языке.
-            Во втором случае, объяснить с первого раза, чтобы не пришлось переделывать несколько раз. Трудочасы разработчика для малого бизнеса – это большая статья расходов.
-            После того, как прошёл курс по веб-разработке, продолжаю создавать проекты для близких и друзей. Активно применяю знания в рабочей среде ежедневно.
+          Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня есть жена
+          и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить. С 2015 года работал в компании «СКБ Контур». После того, как прошёл курс по веб-разработке, начал заниматься фриланс-заказами и ушёл с постоянной работы.
           </p>
 
-          <p className="portfolio__link">Github</p>
+          <a href="https://github.com/vmityagin" className="portfolio__link"  target="_blank" rel="noreferrer">Github</a>
         </div>
 
         <div className="portfolio__avatar">
@@ -35,17 +30,23 @@ function Portfolio() {
       <div className="portfolio__links">
         <h5 className="portfolio__subtext">Портфолио</h5>
         <ul className="portfolio__results">
-          <li className="portfolio__result">
-            <p className="portfolio__title">Статичный сайт</p>
-            <img className="portfolio__button" src={buttonArrow} alt="Иконка перехода на сайт"/>
+          <li className="portfolio__element">
+            <a className="portfolio__result" href="https://github.com/vmityagin/how-to-learn" target="_blank" rel="noreferrer" >
+              <p className="portfolio__title">Статичный сайт</p>
+              <img className="portfolio__button" src={buttonArrow} alt="Иконка перехода на сайт"/>
+            </a>
           </li>
-          <li className="portfolio__result">
-            <p className="portfolio__title">Адаптивный сайт</p>
-            <img className="portfolio__button" src={buttonArrow} alt="Иконка перехода на сайт"/>
+          <li className="portfolio__element">
+            <a className="portfolio__result" href="https://github.com/vmityagin/russian-travel" target="_blank" rel="noreferrer" >
+              <p className="portfolio__title">Адаптивный сайт</p>
+              <img className="portfolio__button" src={buttonArrow} alt="Иконка перехода на сайт"/>
+            </a>
           </li>
-          <li className="portfolio__result noborder">
-            <p className="portfolio__title">Одностраничное приложение</p>
-            <img className="portfolio__button" src={buttonArrow} alt="Иконка перехода на сайт"/>
+          <li className="portfolio__element">
+            <a className="portfolio__result" href="https://github.com/vmityagin/react-mesto-api-full" target="_blank" rel="noreferrer" >
+              <p className="portfolio__title">Одностраничное приложение</p>
+              <img className="portfolio__button" src={buttonArrow} alt="Иконка перехода на сайт"/>
+            </a>
           </li>
         </ul>
       </div>

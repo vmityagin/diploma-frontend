@@ -1,7 +1,10 @@
 .promo__background {
+  padding: 0;
+  margin: 0 auto;
+
   background-color: #5C5C5C;
   max-width: 1280px;
-  height: 524px;
+  min-height: 524px;
   position: relative;
   display: flex;
   justify-content: center;

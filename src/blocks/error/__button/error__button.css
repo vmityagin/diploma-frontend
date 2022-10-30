@@ -1,6 +1,6 @@
 .error__button {
   margin: 0;
-  padding: 0;
+  padding: 184px 0 0;
 
   font-family: 'Inter';
   font-style: normal;
@@ -11,7 +11,14 @@
   text-align: center;
 
   color: #2BE080;
+}
 
-  position: absolute;
-  bottom: 69px;
+.error__button:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 425px) {
+  .error__button {
+    padding: 282px 0 0;
+  }
 }

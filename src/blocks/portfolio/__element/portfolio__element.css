@@ -1,0 +1,7 @@
+.portfolio__element {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  min-height: 64px;
+}

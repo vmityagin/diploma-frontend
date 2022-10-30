@@ -3,8 +3,7 @@ import header__logo from '../images/header__logo.svg';
 import header__account_icon from '../images/header__account_icon.svg';
 import nav__hamburger from '../images/nav__hamburger.svg';
 
-
-function Header({ handleSignOut, isLoggedIn}) {
+function Header({ handleSignOut, isLoggedIn, onClick}) {
 
   return (
     <>
@@ -39,10 +38,10 @@ function Header({ handleSignOut, isLoggedIn}) {
 
             <ul className="nav__menu">
               <li>
-                <NavLink to="/movies" className="nav__movies">Фильмы</NavLink>
+                <NavLink to="/movies" className="nav__movies" activeClassName="nav__movies_active">Фильмы</NavLink>
               </li>
               <li>
-                <NavLink to="/saved-movies" className="nav__save-movies">Сохранённые фильмы</NavLink>
+                <NavLink to="/saved-movies" className="nav__movies" activeClassName="nav__movies_active">Сохранённые фильмы</NavLink>
               </li>
             </ul>
 
@@ -57,9 +56,9 @@ function Header({ handleSignOut, isLoggedIn}) {
 
           </nav>
 
-          <nav className="nav__mobile">
+          <button onClick={onClick} className="nav__mobile">
             <img className="nav__hamburger" src={nav__hamburger} alt="иконка меню гамбургер" />
-          </nav>
+          </button>
         </header>
       }
     </>

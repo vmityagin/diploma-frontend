@@ -1,0 +1,17 @@
+.popup__menu {
+  padding: 0;
+  margin: 159px auto 0;
+  max-width: 340px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 520px) {
+  .popup__menu {
+    margin: 144px auto 0;
+  }
+
+}
