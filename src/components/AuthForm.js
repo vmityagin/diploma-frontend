@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom';
 function AuthForm(props) {
 
   return (
-    <section className="auth">
+    <main className="auth">
       <div className="auth__header">
         <NavLink to="/" className="header__register">
           <img className="auth__logo" src={authLogo} alt="логотип сайта"/>
@@ -12,7 +12,7 @@ function AuthForm(props) {
         <h1 className="auth__title">{props.headText}</h1>
       </div>
       {props.children}
-    </section>
+    </main>
   );
 }
 

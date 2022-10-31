@@ -22,7 +22,6 @@ function App() {
     document.body.classList.remove('scroll');
   }
 
-
   return (
     <>
       <Switch>
@@ -36,7 +35,10 @@ function App() {
           />
         </Route>
         <Route path="/saved-movies">
-          <SaviedMovies />
+          <SaviedMovies
+            isOpen={handlePopupMenuNavigation}
+            onClose={closePopup}
+          />
         </Route>
         <Route path="/profile">
           <Profile />

@@ -6,7 +6,7 @@
   margin: 22px 0 22px 22px;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 480px) {
   .moviesElement__group {
     width: 272px;
     height: 36px;

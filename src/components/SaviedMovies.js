@@ -5,17 +5,19 @@ import MoviesCardList from './Movies/MoviesCardList';
 import Preloader from './Movies/Preloader';
 import Footer from './Footer';
 
-function Movies() {
+function Movies({ isLoggedIn, isOpen, onClose }) {
     return (
-      <section className="page">
+      <main className="page">
         <Header
           isLoggedIn="true"
+          onClick={isOpen}
+          onClose={onClose}
         />
-        <SearchForm />
+        <SearchForm isCheckBox={true} />
         <MoviesCardList typeButton="cross" />
         <Preloader />
         <Footer />
-      </section>
+      </main>
     );
   }
 

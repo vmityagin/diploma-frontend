@@ -3,7 +3,7 @@ import Header from './Header';
 
 function Movies() {
     return (
-      <section className="page">
+      <main className="page">
         <Header
           isLoggedIn="true"
         />
@@ -30,7 +30,7 @@ function Movies() {
             <p className="profile__logout">Выйти из аккаунта</p>
           </button>
         </div>
-      </section>
+      </main>
     );
   }
 

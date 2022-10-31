@@ -86,6 +86,7 @@
 @import url('./blocks/search/__button/search__button.css');
 @import url('./blocks/search/__filter/search__filter.css');
 @import url('./blocks/search/__checkBox/search__checkBox.css');
+@import url('./blocks/search/__checkBox/_active/search__checkBox_active.css');
 @import url('./blocks/search/__nameBox/search__nameBox.css');
 
 @import url('./blocks/moviesElements/moviesElements.css');
@@ -142,6 +143,7 @@
 @import url('./blocks/popup/__nav/popup__nav.css');
 @import url('./blocks/popup/__element/popup__element.css');
 @import url('./blocks/popup/__text/popup__text.css');
+@import url('./blocks/popup/__text/_active/popup__text_active.css');
 @import url('./blocks/popup/__account/popup__account.css');
 @import url('./blocks/popup/__menu/popup__menu.css');
 @import url('./blocks/popup/__element/popup__element.css');

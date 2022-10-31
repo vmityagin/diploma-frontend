@@ -10,7 +10,7 @@
   padding: 0;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 480px) {
   .moviesElement__title {
     width: 228px;
     margin: 0 30px 8px 0;

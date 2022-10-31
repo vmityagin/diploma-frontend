@@ -1,8 +1,19 @@
 .search__checkBox {
+  background-image: url('../../../images/search__checkBox.svg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  object-fit: cover;
+
+  padding: 0;
+
   width: 36px;
   height: 20px;
-  object-fit: cover;
+
   object-position: center;
+
+  border: none;
+  background-color: transparent;
 }
 
 .search__checkBox:hover {
