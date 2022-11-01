@@ -2,7 +2,7 @@ import React from 'react';
 
 function Footer() {
   return (
-    <section className="footer">
+    <footer className="footer">
       <h6 className="footer__project">Учебный проект Яндекс.Практикум х BeatFilm.</h6>
         <div className="footer__box">
           <div>
@@ -10,14 +10,28 @@ function Footer() {
           </div>
           <ul className="footer__links">
             <li>
-              <a className="footer__link">Яндекс.Практикум</a>
+              <a
+                href="https://praktikum.yandex.ru/"
+                className="footer__link"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Яндекс.Практикум
+              </a>
             </li>
             <li>
-              <a className="footer__link">Github</a>
+              <a
+                href="https://github.com/"
+                className="footer__link"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Github
+              </a>
             </li>
           </ul>
         </div>
-    </section>
+    </footer>
   );
 }
 

@@ -13,7 +13,7 @@ function Movies({ isLoggedIn, isOpen, onClose }) {
           onClick={isOpen}
           onClose={onClose}
         />
-        <SearchForm isCheckBox={true} />
+        <SearchForm />
         <MoviesCardList typeButton="cross" />
         <Preloader />
         <Footer />

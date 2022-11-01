@@ -38,7 +38,7 @@ function Login({ buttonText }) {
             </span>
           </div>
 
-          <div className="form__footer">
+          <footer className="form__footer">
             <button
               className="form__button"
               type="submit"
@@ -52,8 +52,7 @@ function Login({ buttonText }) {
                 Регистрация
               </NavLink>
             </p>
-          </div>
-
+          </footer>
         </form>
       </AuthForm>
   );

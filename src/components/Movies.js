@@ -7,17 +7,19 @@ import Footer from './Footer';
 
 function Movies({ isLoggedIn, isOpen, onClose }) {
     return (
-      <main className="page">
+      <div className="page">
         <Header
           isLoggedIn={true}
           onClick={isOpen}
           onClose={onClose}
         />
-        <SearchForm isCheckBox={true} />
-        <MoviesCardList typeButton="like" />
-        <Preloader />
+        <main >
+          <SearchForm />
+          <MoviesCardList typeButton="like" />
+          <Preloader />
+        </main>
         <Footer />
-      </main>
+      </div>
     );
   }
 

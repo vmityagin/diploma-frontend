@@ -6,7 +6,7 @@ function NavigationPopup({ isOpen, onClose }) {
 
   return (
     <section onClick={onClose} className={`popup popup_type_navigation ${isOpen ? `popup_active` : ''}`}>
-      <nav className="popup__nav">
+      <nav className="popup__nav" onClick={(e) => e.stopPropagation()}>
         <img onClick={onClose} src={popup__cross} className="popup__cross" alt="иконка крестика"/>
 
         <ul className="popup__menu">

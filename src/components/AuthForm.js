@@ -4,15 +4,17 @@ import {NavLink} from 'react-router-dom';
 function AuthForm(props) {
 
   return (
-    <main className="auth">
-      <div className="auth__header">
+    <div className="auth">
+      <header className="auth__header">
         <NavLink to="/" className="header__register">
           <img className="auth__logo" src={authLogo} alt="логотип сайта"/>
         </NavLink>
         <h1 className="auth__title">{props.headText}</h1>
-      </div>
-      {props.children}
-    </main>
+      </header>
+      <main>
+        {props.children}
+      </main>
+    </div>
   );
 }
 
