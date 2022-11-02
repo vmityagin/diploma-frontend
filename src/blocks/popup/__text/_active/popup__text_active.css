@@ -1,0 +1,4 @@
+.popup__text_active {
+  border-bottom: 2px solid black;
+  padding-bottom: 4px;
+}

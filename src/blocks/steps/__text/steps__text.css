@@ -1,0 +1,16 @@
+.steps__text {
+  margin: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #000000;
+}
+
+@media screen and (max-width: 550px) {
+  .steps__text {
+    font-size: 11px;
+    line-height: 16px;
+  }
+}

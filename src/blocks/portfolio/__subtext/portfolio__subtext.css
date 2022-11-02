@@ -1,0 +1,19 @@
+.portfolio__subtext {
+  width: 100%;
+  margin: 0 0 50px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+
+  color: #A0A0A0;
+}
+
+
+@media screen and (max-width: 425px) {
+  .portfolio__subtext {
+    font-size: 14px;
+    margin: 0 0 39px;
+  }
+}

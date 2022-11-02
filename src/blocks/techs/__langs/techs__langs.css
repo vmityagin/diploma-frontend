@@ -1,0 +1,16 @@
+.techs__langs {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  justify-items: center;
+}
+
+@media screen and (max-width: 375px) {
+  .techs__langs {
+    max-width: 191px;
+    grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
+  }
+}

@@ -1,0 +1,20 @@
+.nav__profile {
+  text-decoration: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  width: 100px;
+
+  color: #000000;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav__profile:hover {
+  opacity: 0.8;
+}

@@ -1,0 +1,13 @@
+.techs__box {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 90px auto 100px;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .techs__box {
+    margin: 60px auto 50px;
+  }
+}

@@ -1,0 +1,9 @@
+.profile__box {
+  padding: 0 0 16px;
+  margin: 0 0 17px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid #E8E8E8;
+}

@@ -1,0 +1,24 @@
+.error__button {
+  margin: 0;
+  padding: 184px 0 0;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+
+  text-align: center;
+
+  color: #2BE080;
+}
+
+.error__button:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 425px) {
+  .error__button {
+    padding: 282px 0 0;
+  }
+}

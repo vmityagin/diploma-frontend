@@ -1,0 +1,13 @@
+.moviesElement__image {
+  margin: 6px 6px 6px 0;
+  width: 220px;
+  height: 122px;
+}
+
+@media screen and (max-width: 480px) {
+  .moviesElement__image {
+    width: 300px;
+    height: 168px;
+    margin: 0;
+  }
+}

@@ -1,0 +1,12 @@
+.nav__icon {
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  object-fit: cover;
+}
+
+.nav__icon:hover {
+  opacity: 0.8;
+}

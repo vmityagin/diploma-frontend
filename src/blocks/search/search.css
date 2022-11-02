@@ -1,0 +1,13 @@
+.search {
+  margin: 0;
+  padding: 70px 70px 113px;
+  max-width: 1140px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 450px) {
+  .search {
+    padding: 92px 14px 89px;
+  }
+}

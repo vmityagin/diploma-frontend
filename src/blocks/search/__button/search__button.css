@@ -1,0 +1,20 @@
+.search__button {
+  background-image: url('../../../images/search__button.svg');
+  background-size: 34px 34px;
+  background-repeat: no-repeat;
+  background-position: right;
+  box-sizing: border-box;
+
+  width: 80px;
+  height: 34px;
+  object-fit: cover;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+.search__button:hover {
+  opacity: 0.8;
+}

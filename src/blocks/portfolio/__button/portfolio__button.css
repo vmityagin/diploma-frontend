@@ -1,0 +1,11 @@
+.portfolio__button {
+  width: 29px;
+  height: 20px;
+}
+
+@media screen and (max-width: 425px) {
+  .portfolio__button {
+    width: 20px;
+    height: 12px;
+  }
+}

@@ -1,0 +1,13 @@
+.popup__text {
+  text-decoration-line: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+
+  text-align: center;
+  text-decoration-line: none;
+
+  color: #000000;
+}
