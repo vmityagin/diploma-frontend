@@ -1,15 +1,15 @@
 import React from 'react';
 import MoviesCard from './MoviesCard';
 
-function MoviesCardList({ typeButton }) {
+function MoviesCardList({ typeButton, moviesRender, moviesRenderShort, isCheckBox }) {
   return (
     <section className="MoviesCardList">
       <ul className="MoviesElements">
-        <MoviesCard typeButton={typeButton} />
-        <MoviesCard typeButton={typeButton} />
-        <MoviesCard typeButton={typeButton} />
-        <MoviesCard typeButton={typeButton} />
-        <MoviesCard typeButton={typeButton} />
+      {
+        moviesRender.map((movie) => (
+          <MoviesCard movie={movie} key={movie.id} typeButton={typeButton} />
+        ))
+      }
       </ul>
     </section>
   );
