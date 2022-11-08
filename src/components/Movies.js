@@ -12,10 +12,12 @@ function Movies({
   handleCheckBox,
   isCheckBox,
   moviesRender,
-  moviesRenderShort,
   handleSubmitSearchForm,
   handleButtonYet,
   isVisible,
+  handleLikeClick,
+  savedMovies,
+  handleDeleteLikeClick,
 }) {
     return (
       <div className="page">
@@ -35,6 +37,9 @@ function Movies({
             moviesRender={moviesRender}
             moviesRenderShort={moviesRender}
             isCheckBox={isCheckBox}
+            handleLikeClick={handleLikeClick}
+            savedMovies={savedMovies}
+            handleDeleteLikeClick={handleDeleteLikeClick}
             />
           <More
             isVisible={isVisible}

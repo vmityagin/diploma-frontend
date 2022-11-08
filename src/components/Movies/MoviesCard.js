@@ -1,14 +1,41 @@
+import { computeHeadingLevel } from '@testing-library/react';
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 import moviesPoster from '../../images/moviesElement__image.jpg';
 
 
-function MoviesCard({ movie, typeButton }) {
+function MoviesCard({ movie, typeButton, handleLikeClick, handleDeleteLikeClick, savedMovies, index }) {
   const [ isLike, setIsLike ] = React.useState(false);
+  const userContext = React.useContext(CurrentUserContext);
 
   function timeCalculate(duration) {
     let timeString = (duration / 60).toFixed(2).split('.');
     return timeString;
+  }
+
+  function handleLike() {
+    handleLikeClick(movie);
+    setIsLike(true);
+  }
+
+  function handleDeleteLike() {
+    handleDeleteLikeClick(movie, index);
+    setIsLike(false);
+  }
+
+  React.useEffect(() => {
+    if(typeButton === 'like') {
+      checkStatusLike(savedMovies, movie);
+    }
+  }, [savedMovies]);
+
+  function checkStatusLike(savedMovies, movie) {
+    savedMovies.forEach(element => {
+      if (Number(element.movieId) === movie.id) {
+        setIsLike(true);
+      }
+    });
   }
 
   return (
@@ -20,17 +47,18 @@ function MoviesCard({ movie, typeButton }) {
           </a>
           { typeButton === 'like' ?
             <button
-            onClick={() => isLike ? setIsLike(false) : setIsLike(true)}
-            className={`${isLike}` === 'true' ? 'moviesElement__like_active' : 'moviesElement__like'}
-            type="button"
+              onClick={`${isLike}` === 'true' ? handleDeleteLike : handleLike}
+              className={`${isLike}` === 'true' ? 'moviesElement__like_active' : 'moviesElement__like'}
+              type="button"
             >
             </button>
             :
-            <button className="moviesElement__cross" type="button"></button>
+            movie.owner === userContext.data._id &&
+            <button className="moviesElement__cross" type="button" onClick={handleDeleteLike}></button>
           }
         </div>
         <a href={movie.trailerLink} target="_blank" rel="noreferrer" className="moviesElement__link">
-          <img className="moviesElement__image" src={`https://api.nomoreparties.co/${movie.image.url}`} alt={movie.nameRU} />
+          <img className="moviesElement__image" src={typeButton === 'like' ? `https://api.nomoreparties.co/${movie.image.url}` : movie.image} alt={movie.nameRU} />
         </a>
       </li>
   );

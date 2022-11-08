@@ -5,7 +5,7 @@ import MoviesCardList from './Movies/MoviesCardList';
 import More from './Movies/More';
 import Footer from './Footer';
 
-function Movies({ isLoggedIn, isOpen, onClose, moviesRenderList }) {
+function Movies({ isLoggedIn, isOpen, onClose, handleDeleteLikeClick, savedMovies }) {
     return (
       <main className="page">
         <Header
@@ -16,7 +16,8 @@ function Movies({ isLoggedIn, isOpen, onClose, moviesRenderList }) {
         <SearchForm />
         <MoviesCardList
           typeButton="cross"
-          movies={moviesRenderList}
+          moviesRender={savedMovies}
+          handleDeleteLikeClick={handleDeleteLikeClick}
          />
         <More />
         <Footer />

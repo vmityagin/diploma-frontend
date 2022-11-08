@@ -22,17 +22,6 @@ window.addEventListener("resize", () => {
   timeOutFunctionId = setTimeout(500);
 });
 
-/* function newArrayMoviesList(array, arrayRender) {
-  let incrementStep = checkWidthScreen();
-  let numberDiff = array.length - arrayRender.length;
-
-  if (numberDiff > incrementStep) {
-    return arrayRender.length + incrementStep;
-  } else {
-    return arrayRender.length + numberDiff;
-  }
-} */
-
 function sortShortMovies(array) {
   const shortMovies = array.filter((element) => {
     return element.duration <= 40;
@@ -41,14 +30,18 @@ function sortShortMovies(array) {
 }
 
 function renderMoviesPage(allMoviesList, pageMoviesList) {
+
   let incrementStep = checkWidthScreen();
+
   let numberDiff = allMoviesList.length - pageMoviesList.length;
+
   const lengthPageArray = pageMoviesList.length;
   if (numberDiff > incrementStep) {
     return allMoviesList.slice(lengthPageArray, (lengthPageArray + incrementStep));
   } else {
-    return allMoviesList.slice(lengthPageArray, (lengthPageArray + numberDiff));
+    return allMoviesList.slice(lengthPageArray);
   }
 }
+
 
 export { inputsSearch, sortShortMovies, renderMoviesPage };
