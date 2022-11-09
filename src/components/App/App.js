@@ -10,13 +10,14 @@ import PageNotFound from '../PageNotFound';
 import NavigationPopup from '../NavigationPopup';
 import api from '../../utils/MoviesApi';
 import apiMain from '../../utils/MainApi';
+import * as Auth from '../Auth';
 import ProtectedRoute from '../ProtectedRoute';
 import { sortShortMovies, renderMoviesPage } from '../../utils/constants';
 import {CurrentUserContext} from '../../context/CurrentUserContext';
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState('');
-  const [loggedIn, setLoggedIn] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [isNavigationPopup, setIsNavigationPopup] = React.useState(false);
   const [ isCheckBox, setIsCheckBox ] = React.useState(false);
   const [ isPhrase, setPhrase ] = React.useState(false);
@@ -29,12 +30,15 @@ function App() {
   const [ moviesRender, setMoviesRender ] = React.useState([]);
   const [ initialState, setinitialState ] = React.useState([]);
 
+  const history = useHistory();
+
   React.useEffect(() => {
-    apiMain.loadCardMovies()
+    apiMain.loadUserCardMovies()
     .then((movies) => {
       setSavedMovies(movies.data);
     })
-  }, []);
+    .catch(err => console.log(err));
+  }, [loggedIn]);
 
   function handlePopupMenuNavigation() {
     setIsNavigationPopup(true);
@@ -107,16 +111,6 @@ function App() {
     document.body.classList.remove('scroll');
   }
 
- React.useEffect(() => {
-    apiMain.getInfromationUser()
-      .then((info) => {
-        setCurrentUser(info);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [])
-
   function handleLikeClick(card) {
     apiMain.savedMovieInUserList(card)
       .then((movie) => {
@@ -144,6 +138,70 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
+  }
+
+  function handleSubmitAuthForm(data) {
+    if(data.userName) {
+      Auth.register(data)
+        .then((res) => {
+          if (res) {
+            history.push('/signin');
+          } else {
+            alert('Что-то пошло не так');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    } else {
+      apiMain.login(data)
+        .then((res) => {
+
+        })
+    }
+  }
+
+  function handleSubmitLogin(data) {
+    return Auth.authorize(data)
+    .then((data) => {
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        setLoggedIn(true);
+        history.push('/movies');
+      } else {
+        alert('Что-то пошло не так');
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  React.useEffect(() => {
+    tokenCheck();
+  }, [loggedIn]);
+
+  function tokenCheck() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      apiMain.getInfromationUser(token)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            setCurrentUser(res);
+            history.push('/movies');
+          } else {
+            setLoggedIn(false);
+            history.push('/signin');
+          }
+        })
+        .catch(err => console.log(err));
+    }
+  }
+
+  function signOut() {
+    localStorage.removeItem('token');
+    history.push('/signin');
   }
 
   return (
@@ -181,15 +239,18 @@ function App() {
           path="/profile"
           component={Profile}
           loggedCheck={loggedIn}
+          signOut={signOut}
         />
         <Route path="/signup">
           <Register
             buttonText="Зарегистрироваться"
+            handleSubmitAuthForm={handleSubmitAuthForm}
           />
         </Route>
         <Route path="/signin">
           <Login
             buttonText="Войти"
+            handleSubmitLogin={handleSubmitLogin}
           />
         </Route>
         <Route path="*" >

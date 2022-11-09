@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './Header';
 import {CurrentUserContext} from '../context/CurrentUserContext';
 
-function Movies() {
+function Profile({signOut}) {
   const userContext = React.useContext(CurrentUserContext);
   return (
     <div className="page">
@@ -25,7 +25,7 @@ function Movies() {
           <button className="profile__button">
             <p className="profile__edit">Редактировать</p>
           </button>
-          <button className="profile__button">
+          <button className="profile__button" onClick={signOut}>
             <p className="profile__logout">Выйти из аккаунта</p>
           </button>
         </div>
@@ -34,4 +34,4 @@ function Movies() {
   );
 }
 
-  export default Movies;
+  export default Profile;

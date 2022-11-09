@@ -1,5 +1,6 @@
 class MainApi {
-  constructor({baseUrl, headers}) {
+  constructor(token, {headers}) {
+    this.token = token;
     this.headers = headers;
     this.url = 'https://api.diplomamv.nomoredomains.icu/';
   }
@@ -11,29 +12,40 @@ class MainApi {
     return Promise.reject(`Возникла ошибка при отправке запроса на сервер: ${res.status}`);
   }
 
-  loadCardMovies() {
+  loadUserCardMovies() {
     return fetch(`${this.url}movies `, {
       method: 'GET',
-      headers: this.headers
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${this.token}`
+      }
     }).then((res) => {
       return this._getResponseData(res);
     })
   }
 
-  getInfromationUser() {
+  getInfromationUser(token) {
     return fetch(`${this.url}users/me `, {
       method: 'GET',
-      headers: this.headers
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${this.token}`
+      }
     })
-      .then((res) => {
-        return this._getResponseData(res);
-      })
+      .then(res => res.json())
+      .then((data) => data);
   }
 
   savedMovieInUserList(array) {
     return fetch(`${this.url}movies`, {
       method: 'POST',
-      headers: this.headers,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${this.token}`
+      },
       body: JSON.stringify({
         country: array.country,
         director: array.director,
@@ -56,7 +68,11 @@ class MainApi {
   deleteMovieFromUserList(id) {
     return fetch(`${this.url}movies/${id}`, {
       method: 'DELETE',
-      headers: this.headers,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${this.token}`
+      }
     })
       .then((res) => {
         return this._getResponseData(res);
@@ -66,10 +82,11 @@ class MainApi {
 
 
 
-const api = new MainApi({
+const api = new MainApi(localStorage.getItem('token'),{
   headers: {
+    'Accept': 'application/json',
     'Content-Type': 'application/json',
-    authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzY5M2Q1NWYyNTYxYzNjYzVmOGFhYzgiLCJpYXQiOjE2Njc4NDEzNzcsImV4cCI6MTY2ODQ0NjE3N30.uNhMgHdxsAK4G4VsJcsK9qEOfkpySqh41AQz2U3-l5s'
+    authorization: '0cf8946b-06ea-4e51-9b25-00c23b1ffd1e',
   }
 });
 

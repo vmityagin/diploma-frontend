@@ -21,6 +21,10 @@
   opacity: 0.8;
 }
 
+.form__button:disabled {
+  opacity: 0.2;
+}
+
 @media screen and (max-width: 425px) {
   .form__button {
     padding: 15px 0;

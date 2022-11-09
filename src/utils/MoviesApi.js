@@ -24,7 +24,7 @@ class Api {
 const api = new Api({
   headers: {
     'Content-Type': 'application/json',
-    authorization: 'b34abb99-bb9c-49f0-b4ee-93cb66614104'
+    'Accept': 'application/json',
   }
 });
 

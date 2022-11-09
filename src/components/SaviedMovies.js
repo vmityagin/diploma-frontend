@@ -19,7 +19,6 @@ function Movies({ isLoggedIn, isOpen, onClose, handleDeleteLikeClick, savedMovie
           moviesRender={savedMovies}
           handleDeleteLikeClick={handleDeleteLikeClick}
          />
-        <More />
         <Footer />
       </main>
     );

@@ -84,7 +84,7 @@
 @import url('./blocks/search/__form/search__form.css');
 @import url('./blocks/search/__icon/search__icon.css');
 @import url('./blocks/search/__input/search__input.css');
-@import url('./blocks/search/__label/search__error.css');
+@import url('./blocks/search/__error/search__error.css');
 @import url('./blocks/search/__label/search__label.css');
 @import url('./blocks/search/__button/search__button.css');
 @import url('./blocks/search/__filter/search__filter.css');
@@ -126,8 +126,11 @@
 
 @import url('./blocks/form/form.css');
 @import url('./blocks/form/__main/form__main.css');
+@import url('./blocks/form/__box/form__box.css');
 @import url('./blocks/form/__text/form__text.css');
 @import url('./blocks/form/__input/form__input.css');
+@import url('./blocks/form/__label/form__label.css');
+@import url('./blocks/form/__error/form__error.css');
 @import url('./blocks/form/__input-error/form__input-error.css');
 @import url('./blocks/form/__footer/form__footer.css');
 @import url('./blocks/form/__button/form__button.css');
