@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation, Redirect } from 'react-router-dom';
 import Main from '../Main';
 import Movies from '../Movies';
 import SaviedMovies from '../SaviedMovies';
@@ -14,62 +14,125 @@ import * as Auth from '../Auth';
 import ProtectedRoute from '../ProtectedRoute';
 import { sortShortMovies, renderMoviesPage } from '../../utils/constants';
 import {CurrentUserContext} from '../../context/CurrentUserContext';
+import { filterList } from '../../utils/filteredSavedMovies';
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [isNavigationPopup, setIsNavigationPopup] = React.useState(false);
   const [ isCheckBox, setIsCheckBox ] = React.useState(false);
-  const [ isPhrase, setPhrase ] = React.useState(false);
+
+  const [ isPhrase, setPhrase ] = React.useState('');
+  const [ isPhraseSaved, setPhraseSaved ] = React.useState('');
   const [ isVisible, setIsVisible ] = React.useState(false);
 
+  const [ savedMoviesRender, setSavedMoviesRender ] = React.useState([]);
   const [ savedMovies, setSavedMovies ] = React.useState([]);
 
   const [ moviesListApi, setMoviesListApi ] = React.useState([]);
   const [ moviesListApiShort, setMoviesListApiShort ] = React.useState([]);
   const [ moviesRender, setMoviesRender ] = React.useState([]);
+
   const [ initialState, setinitialState ] = React.useState([]);
 
+  const location = useLocation();
   const history = useHistory();
 
+  /* ФУНКЦИОНАЛ ОТРИСОВКИ КАРТОЧЕК */
+  React.useEffect(() => {
+    updateCardSavedList();
+  }, [location]);
 
   React.useEffect(() => {
-    tokenCheck();
+    getSavedCardMovies()
   }, [loggedIn]);
 
-  function tokenCheck() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      apiMain.getInfromationUser()
-      .then((res) => {
-        setLoggedIn(true);
-        setCurrentUser(res);
-        history.push('/movies');
-      })
-      .catch(err => console.log(err));
-    } else {
-      setLoggedIn(false);
-      history.push('/signin');
+  function handleSubmitSearchForm(searchPhrase, typePage) {
+
+    setMoviesRender(initialState);
+    if (typePage === "movie") {
+
+      renderCardMovies(searchPhrase);
+      setPhrase(searchPhrase);
+
+    } else if (typePage === "savedMovie") {
+      getSavedCardMovies();
+      setPhraseSaved(searchPhrase);
+      let copy = Object.assign([], savedMoviesRender);
+      copy = filterList(searchPhrase, savedMovies);
+      setSavedMoviesRender(copy);
+
     }
   }
 
-  React.useEffect(() => {
+  function renderCardMovies(searchPhrase) {
+    api.loadCardMovies()
+    .then((moviesList) => {
+      const filtredMovies = moviesList.filter((movie) => {
+        return movie.nameRU.toLowerCase().includes(searchPhrase.toLowerCase());
+      })
+
+      setMoviesListApi(filtredMovies);
+      setMoviesListApiShort(sortShortMovies(filtredMovies));
+
+      if (isCheckBox) {
+        let object = sortShortMovies(filtredMovies);
+        setMoviesRender(object);
+      } else {
+        setMoviesRender(filtredMovies);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  function updateCardSavedList() {
+    let copy = Object.assign([], savedMoviesRender);
+    copy = savedMovies;
+    setSavedMoviesRender(copy);
+  }
+
+  function getSavedCardMovies() {
     apiMain.loadUserCardMovies()
     .then((movies) => {
+      setSavedMoviesRender(movies.data);
       setSavedMovies(movies.data);
     })
     .catch(err => console.log(err));
-  }, []);
+  }
 
-  function handlePopupMenuNavigation() {
-    setIsNavigationPopup(true);
-    document.body.classList.add('scroll');
+  function handleLikeClick(card) {
+    apiMain.savedMovieInUserList(card)
+      .then((movie) => {
+        setSavedMoviesRender([...savedMoviesRender, movie.data]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function checkIdCard(card) {
+    let idCard;
+    if (!card.movieId) {
+      return idCard = savedMoviesRender.find(movie => Number(movie.movieId) === card.id)._id;
+    } else {
+      return idCard = card._id;
+    }
+  }
+
+  function handleDeleteLikeClick(card, index) {
+    apiMain.deleteMovieFromUserList(checkIdCard(card))
+      .then((message) => {
+        setSavedMoviesRender([...savedMoviesRender.slice(0, index), ...savedMoviesRender.slice(index + 1)])
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   function handleCheckBox() {
-
     setMoviesRender(initialState);
-
     if(isCheckBox) {
       setIsCheckBox(false);
       let copy = Object.assign([], moviesRender);
@@ -102,63 +165,25 @@ function App() {
     buttonYetCheckVisible();
   }, [moviesRender]);
 
-  function handleSubmitSearchForm(searchPhrase) {
-    setPhrase(searchPhrase);
-    setMoviesRender(initialState);
+  /* ФУНКЦИОНАЛ РЕГИСТРАЦИИ И АВТОРИЗАЦИИ */
 
-    api.loadCardMovies()
-      .then((moviesList) => {
-        const filtredMovies = moviesList.filter((movie) => {
-          return movie.nameRU.toLowerCase().includes(searchPhrase.toLowerCase());
-        })
+  React.useEffect(() => {
+    tokenCheck();
+  }, [loggedIn]);
 
-        setMoviesListApi(filtredMovies);
-        setMoviesListApiShort(sortShortMovies(filtredMovies));
-
-        if (isCheckBox) {
-          let object = sortShortMovies(filtredMovies);
-          setMoviesRender(object);
-        } else {
-          setMoviesRender(filtredMovies);
-        }
+  function tokenCheck() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setLoggedIn(true);
+      apiMain.getInfromationUser()
+      .then((res) => {
+        setCurrentUser(res);
       })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-  function closePopup() {
-    setIsNavigationPopup(false);
-    document.body.classList.remove('scroll');
-  }
-
-  function handleLikeClick(card) {
-    apiMain.savedMovieInUserList(card)
-      .then((movie) => {
-        setSavedMovies([...savedMovies, movie.data]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  function checkIdCard(card) {
-    let idCard;
-    if (!card.movieId) {
-      return idCard = savedMovies.find(movie => Number(movie.movieId) === card.id)._id;
+      .catch(err => console.log(err));
     } else {
-      return idCard = card._id;
+      setLoggedIn(false);
+      history.push('/signin');
     }
-  }
-
-  function handleDeleteLikeClick(card, index) {
-    apiMain.deleteMovieFromUserList(checkIdCard(card))
-      .then((message) => {
-        setSavedMovies([...savedMovies.slice(0, index), ...savedMovies.slice(index + 1)])
-      })
-      .catch((err) => {
-        console.log(err);
-      })
   }
 
   function handleSubmitRegisterForm(data) {
@@ -181,8 +206,8 @@ function App() {
     return Auth.authorize(data)
     .then((data) => {
       if (data.token) {
-        localStorage.setItem('token', data.token);
         setLoggedIn(true);
+        localStorage.setItem('token', data.token);
         history.push('/movies');
       } else {
         alert('Что-то пошло не так');
@@ -204,7 +229,7 @@ function App() {
   function signOut() {
     localStorage.removeItem('token');
     setLoggedIn(false);
-    history.push('/signin');
+    history.push('./signin');
   }
 
   function successChangeUserData(newData) {
@@ -213,6 +238,18 @@ function App() {
         setCurrentUser(res);
       })
       .catch(err => console.log(err));
+  }
+
+  /* ФУНКЦИОНАЛ НАВИГАЦИИ */
+
+  function handlePopupMenuNavigation() {
+    setIsNavigationPopup(true);
+    document.body.classList.add('scroll');
+  }
+
+  function closePopup() {
+    setIsNavigationPopup(false);
+    document.body.classList.remove('scroll');
   }
 
   return (
@@ -224,7 +261,7 @@ function App() {
         <ProtectedRoute
           path="/movies"
           component={Movies}
-          loggedCheck={loggedIn}
+          loggedIn={loggedIn}
           isOpen={handlePopupMenuNavigation}
           onClose={closePopup}
           handleSubmitSearchForm={handleSubmitSearchForm}
@@ -235,21 +272,24 @@ function App() {
           isVisible={isVisible}
           handleLikeClick={handleLikeClick}
           handleDeleteLikeClick={handleDeleteLikeClick}
-          savedMovies={savedMovies}
+          savedMovies={savedMoviesRender}
+          isPhrase={isPhrase}
         />
         <ProtectedRoute
           path="/saved-movies"
           component={SaviedMovies}
-          loggedCheck={loggedIn}
+          loggedIn={loggedIn}
           isOpen={handlePopupMenuNavigation}
           onClose={closePopup}
-          savedMovies={savedMovies}
+          savedMovies={savedMoviesRender}
           handleDeleteLikeClick={handleDeleteLikeClick}
+          handleSubmitSearchForm={handleSubmitSearchForm}
+          isPhrase={isPhraseSaved}
         />
         <ProtectedRoute
           path="/profile"
           component={Profile}
-          loggedCheck={loggedIn}
+          loggedIn={loggedIn}
           signOut={signOut}
           successChangeUserData={successChangeUserData}
         />
@@ -260,10 +300,7 @@ function App() {
           />
         </Route>
         <Route path="/signin">
-          <Login
-            buttonText="Войти"
-            handleSubmitLogin={handleSubmitLogin}
-          />
+          {loggedIn ? <Redirect to="/movies" /> : <Login buttonText="Войти" handleSubmitLogin={handleSubmitLogin} />}
         </Route>
         <Route path="*" >
           <PageNotFound />

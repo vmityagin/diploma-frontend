@@ -6,7 +6,7 @@ import More from './Movies/More';
 import Footer from './Footer';
 
 function Movies({
-  isLoggedIn,
+  loggedIn,
   isOpen,
   onClose,
   handleCheckBox,
@@ -18,11 +18,12 @@ function Movies({
   handleLikeClick,
   savedMovies,
   handleDeleteLikeClick,
+  isPhrase,
 }) {
     return (
       <div className="page">
         <Header
-          isLoggedIn={true}
+          loggedIn={loggedIn}
           onClick={isOpen}
           onClose={onClose}
         />
@@ -31,6 +32,8 @@ function Movies({
             handleCheckBox={handleCheckBox}
             isCheckBox={isCheckBox}
             handleSubmitSearchForm={handleSubmitSearchForm}
+            type={"movie"}
+            isPhrase={isPhrase}
           />
           <MoviesCardList
             typeButton="like"

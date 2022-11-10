@@ -4,7 +4,7 @@ import EditInput from "../components/EditInput";
 import {CurrentUserContext} from '../context/CurrentUserContext';
 import {inputsEdit, regularEmailRegExp} from '../utils/constants';
 
-function Profile({signOut, successChangeUserData}) {
+function Profile({signOut, successChangeUserData, loggedIn}) {
   const userContext = React.useContext(CurrentUserContext);
   const [ isEdit, setIsEdit ] = React.useState(false);
   const [ successSubmit, setSuccessSubmit ] = React.useState(false);
@@ -56,7 +56,7 @@ function Profile({signOut, successChangeUserData}) {
   return (
     <div className="page">
       <Header
-        isLoggedIn="true"
+        loggedIn={loggedIn}
       />
       <main >
         <form className="profile" onSubmit={handleSubmit}>

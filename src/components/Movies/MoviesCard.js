@@ -5,7 +5,14 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 import moviesPoster from '../../images/moviesElement__image.jpg';
 
 
-function MoviesCard({ movie, typeButton, handleLikeClick, handleDeleteLikeClick, savedMovies, index }) {
+function MoviesCard({
+  movie,
+  typeButton,
+  handleLikeClick,
+  handleDeleteLikeClick,
+  savedMovies,
+  index
+}) {
   const [ isLike, setIsLike ] = React.useState(false);
   const userContext = React.useContext(CurrentUserContext);
 

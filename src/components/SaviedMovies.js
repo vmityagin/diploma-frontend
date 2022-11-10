@@ -5,15 +5,18 @@ import MoviesCardList from './Movies/MoviesCardList';
 import More from './Movies/More';
 import Footer from './Footer';
 
-function Movies({ isLoggedIn, isOpen, onClose, handleDeleteLikeClick, savedMovies }) {
+function Movies({ loggedIn, isOpen, onClose, handleDeleteLikeClick, savedMovies, handleSubmitSearchForm }) {
     return (
       <main className="page">
         <Header
-          isLoggedIn="true"
+          loggedIn={loggedIn}
           onClick={isOpen}
           onClose={onClose}
         />
-        <SearchForm />
+        <SearchForm
+          handleSubmitSearchForm={handleSubmitSearchForm}
+          type={"savedMovie"}
+        />
         <MoviesCardList
           typeButton="cross"
           moviesRender={savedMovies}

@@ -2,11 +2,17 @@ import React, { useEffect } from 'react';
 import searchIcon from '../../images/search__icon.svg';
 import { inputsSearch } from '../../utils/constants';
 
-function SearchForm({ handleSubmitSearchForm, handleCheckBox, isCheckBox }) {
+function SearchForm({
+  handleSubmitSearchForm,
+  handleCheckBox,
+  isCheckBox,
+  type,
+  isPhrase
+}) {
   const [ focused, setFocused ] = React.useState(false);
   const [ formValid, setFormValid ] = React.useState(false);
   const [ values, setValues] = React.useState({
-    userText: "",
+    userText: `${isPhrase || ''}`,
   });
 
   useEffect(() => {
@@ -27,7 +33,7 @@ function SearchForm({ handleSubmitSearchForm, handleCheckBox, isCheckBox }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    handleSubmitSearchForm(values.userText);
+    handleSubmitSearchForm(values.userText, type);
   }
 
   return (
