@@ -7,6 +7,23 @@ const inputsSearch = {
     erroremptymessage: "Нужно ввести ключевое слово",
 };
 
+const inputsEdit = [
+  {
+    id:1,
+    name: "userName",
+    type: "text",
+    placeholder: "Имя",
+    label: "Имя",
+  },
+  {
+    id:2,
+    name: "userEmail",
+    type: "email",
+    placeholder: "Email",
+    label: "E-mail",
+  },
+];
+
 const inputsRegister = [
   {
     id:1,
@@ -94,4 +111,4 @@ function renderMoviesPage(allMoviesList, pageMoviesList) {
 }
 
 
-export { inputsSearch, sortShortMovies, renderMoviesPage, inputsRegister, inputsLogin, regularEmailRegExp };
+export { inputsEdit, inputsSearch, sortShortMovies, renderMoviesPage, inputsRegister, inputsLogin, regularEmailRegExp };

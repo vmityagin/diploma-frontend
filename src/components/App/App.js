@@ -16,7 +16,7 @@ import { sortShortMovies, renderMoviesPage } from '../../utils/constants';
 import {CurrentUserContext} from '../../context/CurrentUserContext';
 
 function App() {
-  const [currentUser, setCurrentUser] = React.useState('');
+  const [currentUser, setCurrentUser] = React.useState({});
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [isNavigationPopup, setIsNavigationPopup] = React.useState(false);
   const [ isCheckBox, setIsCheckBox ] = React.useState(false);
@@ -32,13 +32,34 @@ function App() {
 
   const history = useHistory();
 
+
+  React.useEffect(() => {
+    tokenCheck();
+  }, [loggedIn]);
+
+  function tokenCheck() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      apiMain.getInfromationUser()
+      .then((res) => {
+        setLoggedIn(true);
+        setCurrentUser(res);
+        history.push('/movies');
+      })
+      .catch(err => console.log(err));
+    } else {
+      setLoggedIn(false);
+      history.push('/signin');
+    }
+  }
+
   React.useEffect(() => {
     apiMain.loadUserCardMovies()
     .then((movies) => {
       setSavedMovies(movies.data);
     })
     .catch(err => console.log(err));
-  }, [loggedIn]);
+  }, []);
 
   function handlePopupMenuNavigation() {
     setIsNavigationPopup(true);
@@ -140,7 +161,7 @@ function App() {
       })
   }
 
-  function handleSubmitAuthForm(data) {
+  function handleSubmitRegisterForm(data) {
     if(data.userName) {
       Auth.register(data)
         .then((res) => {
@@ -152,11 +173,6 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
-        })
-    } else {
-      apiMain.login(data)
-        .then((res) => {
-
         })
     }
   }
@@ -178,30 +194,25 @@ function App() {
   }
 
   React.useEffect(() => {
-    tokenCheck();
+    apiMain.getInfromationUser()
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch(err => console.log(err));
   }, [loggedIn]);
-
-  function tokenCheck() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      apiMain.getInfromationUser(token)
-        .then((res) => {
-          if (res) {
-            setLoggedIn(true);
-            setCurrentUser(res);
-            history.push('/movies');
-          } else {
-            setLoggedIn(false);
-            history.push('/signin');
-          }
-        })
-        .catch(err => console.log(err));
-    }
-  }
 
   function signOut() {
     localStorage.removeItem('token');
+    setLoggedIn(false);
     history.push('/signin');
+  }
+
+  function successChangeUserData(newData) {
+    apiMain.changeUserData(newData)
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch(err => console.log(err));
   }
 
   return (
@@ -240,11 +251,12 @@ function App() {
           component={Profile}
           loggedCheck={loggedIn}
           signOut={signOut}
+          successChangeUserData={successChangeUserData}
         />
         <Route path="/signup">
           <Register
             buttonText="Зарегистрироваться"
-            handleSubmitAuthForm={handleSubmitAuthForm}
+            handleSubmitAuthForm={handleSubmitRegisterForm}
           />
         </Route>
         <Route path="/signin">

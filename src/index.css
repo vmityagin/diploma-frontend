@@ -114,8 +114,11 @@
 @import url('./blocks/profile/__caption/profile__caption.css');
 @import url('./blocks/profile/__info/profile__info.css');
 @import url('./blocks/profile/__button/profile__button.css');
+@import url('./blocks/profile/__submit/profile__submit.css');
 @import url('./blocks/profile/__edit/profile__edit.css');
 @import url('./blocks/profile/__logout/profile__logout.css');
+@import url('./blocks/profile/__label/profile__label.css');
+@import url('./blocks/profile/__error/profile__error.css');
 
 @import url('./blocks/noborder/noborder.css');
 

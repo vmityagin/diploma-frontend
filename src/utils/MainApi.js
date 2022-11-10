@@ -25,7 +25,7 @@ class MainApi {
     })
   }
 
-  getInfromationUser(token) {
+  getInfromationUser() {
     return fetch(`${this.url}users/me `, {
       method: 'GET',
       headers: {
@@ -73,6 +73,24 @@ class MainApi {
         'Content-Type': 'application/json',
         'authorization': `Bearer ${this.token}`
       }
+    })
+      .then((res) => {
+        return this._getResponseData(res);
+      })
+  }
+
+  changeUserData(data) {
+    return fetch(`${this.url}users/me`, {
+      method: 'PATCH',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${this.token}`
+      },
+      body: JSON.stringify({
+        name: data.userName,
+        email: data.userEmail,
+      })
     })
       .then((res) => {
         return this._getResponseData(res);

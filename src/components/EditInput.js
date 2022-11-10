@@ -1,6 +1,6 @@
 import React from 'react';
 
-function FormInput({ errorMessage, label, onChange, value, validList, id, ...input}) {
+function EditInput({errorMessage, label, onChange, value, validList, id, ...input}) {
   const [ formValid, setFormValid ] = React.useState(false);
   const [ focused, setFocused ] = React.useState(false);
 
@@ -9,20 +9,19 @@ function FormInput({ errorMessage, label, onChange, value, validList, id, ...inp
   }
 
   return (
-    <div className="form__box">
-      <p className="form__text">{label}</p>
+    <div className="profile__box">
+      <p className="profile__caption">{label}</p>
       <input
         {...input}
-        className="form__input"
+        className="profile__info"
         onChange={onChange}
         onBlur={handleFocus}
         focused={focused.toString()}
+        value={value}
+        required
       />
-      <span className={focused && !validList ?  "form__error" : "form__label"} >
-        {errorMessage}
-      </span>
     </div>
   );
 }
 
-export default FormInput;
+export default EditInput;
