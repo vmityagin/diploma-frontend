@@ -111,4 +111,4 @@ function renderMoviesPage(allMoviesList, pageMoviesList) {
 }
 
 
-export { inputsEdit, inputsSearch, sortShortMovies, renderMoviesPage, inputsRegister, inputsLogin, regularEmailRegExp };
+export { checkWidthScreen, inputsEdit, inputsSearch, sortShortMovies, renderMoviesPage, inputsRegister, inputsLogin, regularEmailRegExp };

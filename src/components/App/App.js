@@ -12,100 +12,169 @@ import api from '../../utils/MoviesApi';
 import apiMain from '../../utils/MainApi';
 import * as Auth from '../Auth';
 import ProtectedRoute from '../ProtectedRoute';
-import { sortShortMovies, renderMoviesPage } from '../../utils/constants';
+import { renderMoviesPage, checkWidthScreen } from '../../utils/constants';
 import {CurrentUserContext} from '../../context/CurrentUserContext';
-import { filterList } from '../../utils/filteredSavedMovies';
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [isNavigationPopup, setIsNavigationPopup] = React.useState(false);
   const [ isCheckBox, setIsCheckBox ] = React.useState(false);
+  const [ isCheckBoxSaved, setIsCheckBoxSaved ] = React.useState(false);
 
-  const [ isPhrase, setPhrase ] = React.useState('');
-  const [ isPhraseSaved, setPhraseSaved ] = React.useState('');
+  const [ query, setQuery ] = React.useState('');
+  const [ querySaved, setQuerySaved ] = React.useState('');
   const [ isVisible, setIsVisible ] = React.useState(false);
 
-  const [ savedMoviesRender, setSavedMoviesRender ] = React.useState([]);
   const [ savedMovies, setSavedMovies ] = React.useState([]);
-
-  const [ moviesListApi, setMoviesListApi ] = React.useState([]);
-  const [ moviesListApiShort, setMoviesListApiShort ] = React.useState([]);
   const [ moviesRender, setMoviesRender ] = React.useState([]);
 
-  const [ initialState, setinitialState ] = React.useState([]);
+  const [ initialMoviesApi, setInitialMoviesApi ] = React.useState([]);
+  const [ initialSavedMoviesApi, setInitialSavedMoviesApi ] = React.useState([]);
+
+  const [ submitMovies, setSubmitMovies ] = React.useState([]);
+
+  const [ filteredMovies, setFilteredMovies ] = React.useState([]);
+  const [ filteredSavedMovies, setFilteredSavedMovies ] = React.useState([]);
+
 
   const location = useLocation();
   const history = useHistory();
 
-  /* ФУНКЦИОНАЛ ОТРИСОВКИ КАРТОЧЕК */
+  /* ФУНКЦИОНАЛ ОТРИСОВКИ КАРТОЧЕК НА СТРАНИЦЕ "ФИЛЬМЫ" */
+
+  // Получаем при входе все фильмы по API
   React.useEffect(() => {
-    updateCardSavedList();
-  }, [location]);
+    getApiMovies();
+  }, []);
 
+  // Функция, которая запрашивает фильмы по API
+  function getApiMovies() {
+    api.loadCardMovies()
+      .then((moviesList) => {
+        setInitialMoviesApi(moviesList);
+      })
+      .catch((err) => console.log(err));
+
+    apiMain.loadUserCardMovies()
+      .then((movies) => {
+        setInitialSavedMoviesApi(movies.data);
+      })
+      .catch(err => console.log(err));
+  }
+
+  // Функция, срабатывающая после успешного сабмита. Сохраняет массив фильмов отфильтрованный по фразе
+  function handleSubmitSearchForm(searchPhrase) {
+    setQuery(searchPhrase);
+    const filtered = initialMoviesApi.filter((movie) => {
+      return movie.nameRU.toLowerCase().includes(searchPhrase.toLowerCase());
+    })
+    setSubmitMovies(filtered);
+  }
+
+  // Первая отрисовка карточек после сабмита.
+  // Отрисовка происходит с условием по чекбоксу
+  // И по числу numberCards, которое считается от разрешения экрана
   React.useEffect(() => {
-    getSavedCardMovies()
-  }, [loggedIn]);
+    const numberCards = checkWidthScreen();
+    if (isCheckBox === false) {
+      setMoviesRender(submitMovies.slice(0,numberCards));
+      buttonYetCheckVisible();
+      return;
+    }
 
-  function handleSubmitSearchForm(searchPhrase, typePage) {
+    const shortMoviesSubmit = submitMovies.filter((element) => {
+      return element.duration <= 40;
+    })
+    setFilteredMovies(shortMoviesSubmit);
+    setMoviesRender(shortMoviesSubmit.slice(0,numberCards));
+  }, [isCheckBox, query]);
 
-    setMoviesRender(initialState);
-    if (typePage === "movie") {
 
-      renderCardMovies(searchPhrase);
-      setPhrase(searchPhrase);
+  // Функция, которая изменяется state бегунка короткометражки
+  // на странице "Фильмы"
+  function handleCheckBox() {
+    setIsCheckBox(!isCheckBox);
+  }
 
-    } else if (typePage === "savedMovie") {
-      getSavedCardMovies();
-      setPhraseSaved(searchPhrase);
-      let copy = Object.assign([], savedMoviesRender);
-      copy = filterList(searchPhrase, savedMovies);
-      setSavedMoviesRender(copy);
+  // Функция, которая добавляет карточки в список,
+  // Когда пользователь нажал кнопку "Еще"
+  function handleButtonYet() {
+    if (isCheckBox === false) {
+      let newPart = moviesRender.concat(renderMoviesPage(submitMovies, moviesRender));
+      setMoviesRender(newPart);
+      return;
+    }
+    let newShortPart = moviesRender.concat(renderMoviesPage(filteredMovies, moviesRender));
+    setMoviesRender(newShortPart);
+  }
 
+  // Вызов функции в момент, когда отрисовываются карточки.
+  // Проверка нужно ли отрисовывать карточку.
+  React.useEffect(() => {
+    buttonYetCheckVisible();
+  }, [moviesRender]);
+
+  // Функция, которая устанавливает видимость кнопки "Ещё".
+  function buttonYetCheckVisible() {
+    if (isCheckBox) {
+      filteredMovies.length === moviesRender.length ? setIsVisible(false) : setIsVisible(true);
+    } else {
+      submitMovies.length === moviesRender.length ? setIsVisible(false) : setIsVisible(true);
     }
   }
 
-  function renderCardMovies(searchPhrase) {
-    api.loadCardMovies()
-    .then((moviesList) => {
-      const filtredMovies = moviesList.filter((movie) => {
-        return movie.nameRU.toLowerCase().includes(searchPhrase.toLowerCase());
-      })
 
-      setMoviesListApi(filtredMovies);
-      setMoviesListApiShort(sortShortMovies(filtredMovies));
-
-      if (isCheckBox) {
-        let object = sortShortMovies(filtredMovies);
-        setMoviesRender(object);
-      } else {
-        setMoviesRender(filtredMovies);
+  /* ФУНКЦИОНАЛ ОТРИСОВКИ КАРТОЧЕК НА СТРАНИЦЕ "СОХРАНЕННЫЕ ФИЛЬМЫ" */
+  React.useEffect(() => {
+    if(querySaved) {
+      if (isCheckBoxSaved) {
+        const shortMoviesSavedSubmit = filteredSavedMovies.filter((element) => {
+          return element.duration <= 40;
+        })
+        setSavedMovies(shortMoviesSavedSubmit);
+        return;
       }
+      setSavedMovies(filteredSavedMovies);
+      return;
+    }
+
+    if (isCheckBoxSaved) {
+      const shortMoviesSavedSubmit = initialSavedMoviesApi.filter((element) => {
+        return element.duration <= 40;
+      })
+      setSavedMovies(shortMoviesSavedSubmit);
+      return;
+    }
+    setSavedMovies(initialSavedMoviesApi);
+  }, [isCheckBoxSaved, querySaved])
+
+
+  function submitSavedForm(searchPhrase) {
+    setQuerySaved(searchPhrase);
+    const filtered = initialSavedMoviesApi.filter((movie) => {
+      return movie.nameRU.toLowerCase().includes(searchPhrase.toLowerCase());
     })
-    .catch((err) => {
-      console.log(err);
-    })
+    setFilteredSavedMovies(filtered);
   }
 
-  function updateCardSavedList() {
-    let copy = Object.assign([], savedMoviesRender);
-    copy = savedMovies;
-    setSavedMoviesRender(copy);
+  function handleCheckBoxSaved() {
+    setIsCheckBoxSaved(!isCheckBoxSaved);
   }
 
-  function getSavedCardMovies() {
-    apiMain.loadUserCardMovies()
-    .then((movies) => {
-      setSavedMoviesRender(movies.data);
-      setSavedMovies(movies.data);
-    })
-    .catch(err => console.log(err));
-  }
+  React.useEffect(() => {
+    setSavedMovies(initialSavedMoviesApi);
+    setQuerySaved('');
+    setIsCheckBoxSaved(false);
+  }, [location]);
+
+
+  /* ФУНКЦИОНАЛ ЛАЙКОВ */
 
   function handleLikeClick(card) {
     apiMain.savedMovieInUserList(card)
       .then((movie) => {
-        setSavedMoviesRender([...savedMoviesRender, movie.data]);
+        setSavedMovies([...savedMovies, movie.data]);
       })
       .catch((err) => {
         console.log(err);
@@ -115,7 +184,7 @@ function App() {
   function checkIdCard(card) {
     let idCard;
     if (!card.movieId) {
-      return idCard = savedMoviesRender.find(movie => Number(movie.movieId) === card.id)._id;
+      return idCard = savedMovies.find(movie => Number(movie.movieId) === card.id)._id;
     } else {
       return idCard = card._id;
     }
@@ -124,46 +193,12 @@ function App() {
   function handleDeleteLikeClick(card, index) {
     apiMain.deleteMovieFromUserList(checkIdCard(card))
       .then((message) => {
-        setSavedMoviesRender([...savedMoviesRender.slice(0, index), ...savedMoviesRender.slice(index + 1)])
+        setSavedMovies([...savedMovies.slice(0, index), ...savedMovies.slice(index + 1)])
       })
       .catch((err) => {
         console.log(err);
       })
   }
-
-  function handleCheckBox() {
-    setMoviesRender(initialState);
-    if(isCheckBox) {
-      setIsCheckBox(false);
-      let copy = Object.assign([], moviesRender);
-      copy = moviesListApi;
-      setMoviesRender(copy);
-    } else {
-      setIsCheckBox(true);
-      let copy = Object.assign([], moviesRender);
-      copy = sortShortMovies(moviesListApi);
-      setMoviesRender(copy);
-    }
-  }
-
-  function handleButtonYet() {
-    let copy = Object.assign([], moviesRender);
-    renderMoviesPage((isCheckBox ? moviesListApiShort : moviesListApi), moviesRender).map((movie) =>
-    (copy.push(movie)));
-    setMoviesRender(copy);
-  }
-
-  function buttonYetCheckVisible() {
-    if (isCheckBox) {
-      moviesListApiShort.length === moviesRender.length ? setIsVisible(false) : setIsVisible(true);
-    } else {
-      moviesListApi.length === moviesRender.length ? setIsVisible(false) : setIsVisible(true);
-    }
-  }
-
-  React.useEffect(() => {
-    buttonYetCheckVisible();
-  }, [moviesRender]);
 
   /* ФУНКЦИОНАЛ РЕГИСТРАЦИИ И АВТОРИЗАЦИИ */
 
@@ -272,19 +307,20 @@ function App() {
           isVisible={isVisible}
           handleLikeClick={handleLikeClick}
           handleDeleteLikeClick={handleDeleteLikeClick}
-          savedMovies={savedMoviesRender}
-          isPhrase={isPhrase}
+          savedMovies={savedMovies}
+          isPhrase={query}
         />
         <ProtectedRoute
           path="/saved-movies"
           component={SaviedMovies}
+          savedMovies={savedMovies}
           loggedIn={loggedIn}
           isOpen={handlePopupMenuNavigation}
           onClose={closePopup}
-          savedMovies={savedMoviesRender}
           handleDeleteLikeClick={handleDeleteLikeClick}
-          handleSubmitSearchForm={handleSubmitSearchForm}
-          isPhrase={isPhraseSaved}
+          submitSavedForm={submitSavedForm}
+          handleCheckBox={handleCheckBoxSaved}
+          isCheckBoxSaved={isCheckBoxSaved}
         />
         <ProtectedRoute
           path="/profile"

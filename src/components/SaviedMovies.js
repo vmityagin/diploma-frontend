@@ -1,11 +1,19 @@
 import React from 'react';
 import Header from './Header';
-import SearchForm from './Movies/SearchForm';
-import MoviesCardList from './Movies/MoviesCardList';
-import More from './Movies/More';
+import SearchForm from './SavedMovies/SearchSavedForm';
+import MoviesCardList from './SavedMovies/MoviesSavedCardList';
 import Footer from './Footer';
 
-function Movies({ loggedIn, isOpen, onClose, handleDeleteLikeClick, savedMovies, handleSubmitSearchForm }) {
+function Movies({
+  loggedIn,
+  isOpen,
+  onClose,
+  handleDeleteLikeClick,
+  savedMovies,
+  submitSavedForm,
+  handleCheckBox,
+  isCheckBoxSaved,
+}) {
     return (
       <main className="page">
         <Header
@@ -14,12 +22,14 @@ function Movies({ loggedIn, isOpen, onClose, handleDeleteLikeClick, savedMovies,
           onClose={onClose}
         />
         <SearchForm
-          handleSubmitSearchForm={handleSubmitSearchForm}
+          submitSavedForm={submitSavedForm}
           type={"savedMovie"}
+          handleCheckBox={handleCheckBox}
+          isCheckBoxSaved={isCheckBoxSaved}
         />
         <MoviesCardList
           typeButton="cross"
-          moviesRender={savedMovies}
+          savedMovies={savedMovies}
           handleDeleteLikeClick={handleDeleteLikeClick}
          />
         <Footer />
