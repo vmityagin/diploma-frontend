@@ -67,8 +67,12 @@ function App() {
   function handleSubmitSearchForm(searchPhrase) {
     setQuery(searchPhrase);
     const filtered = initialMoviesApi.filter((movie) => {
-      return movie.nameRU.toLowerCase().includes(searchPhrase.toLowerCase());
-    })
+      let rusFilm = movie.nameRU.toLowerCase().includes(searchPhrase.toLowerCase());
+      if (rusFilm) {
+        return movie;
+      }
+      return movie.nameEN.toLowerCase().includes(searchPhrase.toLowerCase());
+    });
     setSubmitMovies(filtered);
   }
 
@@ -153,7 +157,11 @@ function App() {
   function submitSavedForm(searchPhrase) {
     setQuerySaved(searchPhrase);
     const filtered = initialSavedMoviesApi.filter((movie) => {
-      return movie.nameRU.toLowerCase().includes(searchPhrase.toLowerCase());
+      let rusFilm = movie.nameRU.toLowerCase().includes(searchPhrase.toLowerCase());
+      if (rusFilm) {
+        return movie;
+      }
+      return movie.nameEN.toLowerCase().includes(searchPhrase.toLowerCase());
     })
     setFilteredSavedMovies(filtered);
   }
