@@ -1,7 +1,6 @@
-class MainApi {
-  constructor(token, {headers}) {
+export default class MainApi {
+  constructor(token) {
     this.token = token;
-    this.headers = headers;
     this.url = 'https://api.diplomamv.nomoredomains.icu/';
   }
 
@@ -97,15 +96,3 @@ class MainApi {
       })
   }
 }
-
-
-
-const api = new MainApi(localStorage.getItem('token'),{
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
-    authorization: '0cf8946b-06ea-4e51-9b25-00c23b1ffd1e',
-  }
-});
-
-export default api;

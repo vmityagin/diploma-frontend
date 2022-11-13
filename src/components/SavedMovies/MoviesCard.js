@@ -8,9 +8,11 @@ import moviesPoster from '../../images/moviesElement__image.jpg';
 function MoviesCard({
   movie,
   handleDeleteLikeClick,
-  index
+  index,
 }) {
   const userContext = React.useContext(CurrentUserContext);
+
+  const isOwn = movie.owner === userContext.data._id;
 
   function timeCalculate(duration) {
     let timeString = (duration / 60).toFixed(2).split('.');
@@ -29,7 +31,7 @@ function MoviesCard({
             <p className="moviesElement__duration">{`${timeCalculate(movie.duration)[0]}ч ${movie.duration - timeCalculate(movie.duration)[0]*60}м`}</p>
           </a>
           {
-            movie.owner === userContext.data._id &&
+            isOwn &&
             <button className="moviesElement__cross" type="button" onClick={handleDeleteLike}></button>
           }
         </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import MoviesCard from './MoviesCard';
+import MoviesCard from '../SavedMovies/MoviesCard';
 
 function MoviesSavedCardList({ handleDeleteLikeClick, savedMovies }) {
 

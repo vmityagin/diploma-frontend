@@ -2,13 +2,14 @@ import React from 'react';
 import MoviesCard from './MoviesCard';
 
 function MoviesCardList({
-  typeButton,
   moviesRender,
+  isLike,
   handleLikeClick,
   handleDeleteLikeClick,
   savedMovies,
 })
 {
+
   return (
     <section className="MoviesCardList">
       <ul className="MoviesElements">
@@ -16,12 +17,11 @@ function MoviesCardList({
         moviesRender.map((movie, index) => (
           <MoviesCard
             movie={movie}
-            key={typeButton === 'like' ? movie.id : movie._id}
-            typeButton={typeButton}
+            key={movie.id}
+            isLike={isLike}
             handleLikeClick={handleLikeClick}
             handleDeleteLikeClick={handleDeleteLikeClick}
             savedMovies={savedMovies}
-            index={index}
           />
         ))
       }
@@ -30,4 +30,4 @@ function MoviesCardList({
   );
 }
 
-  export default MoviesCardList;
+export default MoviesCardList;

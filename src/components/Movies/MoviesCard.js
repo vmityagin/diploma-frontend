@@ -1,48 +1,36 @@
-import { computeHeadingLevel } from '@testing-library/react';
 import React from 'react';
-import {Link} from 'react-router-dom';
-import { CurrentUserContext } from '../../context/CurrentUserContext';
-import moviesPoster from '../../images/moviesElement__image.jpg';
-
+import apiMain from '../../utils/MainApi';
 
 function MoviesCard({
   movie,
-  typeButton,
   handleLikeClick,
   handleDeleteLikeClick,
   savedMovies,
-  index
 }) {
-  const [ isLike, setIsLike ] = React.useState(false);
-  const userContext = React.useContext(CurrentUserContext);
+  const [ allApiSavedMovies, setAllApiSavedMovies ] = React.useState([]);
 
   function timeCalculate(duration) {
     let timeString = (duration / 60).toFixed(2).split('.');
     return timeString;
   }
 
+  const statusLike = savedMovies.some(i => Number(i.movieId) === movie.id);
+
+  const cardLikeButtonClassName = (
+    `${statusLike ? 'moviesElement__like_active' : 'moviesElement__like'}`
+  );
+
+  React.useEffect(() => {
+    console.log(statusLike);
+  },[statusLike]);
+
+
   function handleLike() {
     handleLikeClick(movie);
-    setIsLike(true);
   }
 
   function handleDeleteLike() {
-    handleDeleteLikeClick(movie, index);
-    setIsLike(false);
-  }
-
-  React.useEffect(() => {
-    if(typeButton === 'like') {
-      checkStatusLike(savedMovies, movie);
-    }
-  }, [savedMovies]);
-
-  function checkStatusLike(savedMovies, movie) {
-    savedMovies.forEach(element => {
-      if (Number(element.movieId) === movie.id) {
-        setIsLike(true);
-      }
-    });
+    handleDeleteLikeClick(movie);
   }
 
   return (
@@ -52,20 +40,15 @@ function MoviesCard({
             <h2 className="moviesElement__title">{movie.nameRU}</h2>
             <p className="moviesElement__duration">{`${timeCalculate(movie.duration)[0]}ч ${movie.duration - timeCalculate(movie.duration)[0]*60}м`}</p>
           </a>
-          { typeButton === 'like' ?
-            <button
-              onClick={`${isLike}` === 'true' ? handleDeleteLike : handleLike}
-              className={`${isLike}` === 'true' ? 'moviesElement__like_active' : 'moviesElement__like'}
-              type="button"
-            >
-            </button>
-            :
-            movie.owner === userContext.data._id &&
-            <button className="moviesElement__cross" type="button" onClick={handleDeleteLike}></button>
-          }
+          <button
+            onClick={handleLike}
+            className={cardLikeButtonClassName}
+            type="button"
+          >
+          </button>
         </div>
         <a href={movie.trailerLink} target="_blank" rel="noreferrer" className="moviesElement__link">
-          <img className="moviesElement__image" src={typeButton === 'like' ? `https://api.nomoreparties.co/${movie.image.url}` : movie.image} alt={movie.nameRU} />
+          <img className="moviesElement__image" src={`https://api.nomoreparties.co/${movie.image.url}`} alt={movie.nameRU} />
         </a>
       </li>
   );

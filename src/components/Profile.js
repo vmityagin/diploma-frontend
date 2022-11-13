@@ -6,6 +6,7 @@ import {inputsEdit, regularEmailRegExp} from '../utils/constants';
 
 function Profile({signOut, successChangeUserData, loggedIn}) {
   const userContext = React.useContext(CurrentUserContext);
+
   const [ isEdit, setIsEdit ] = React.useState(false);
   const [ successSubmit, setSuccessSubmit ] = React.useState(false);
 
@@ -51,7 +52,6 @@ function Profile({signOut, successChangeUserData, loggedIn}) {
     setIsEdit(true);
     validValues();
   }
-
 
   return (
     <div className="page">
