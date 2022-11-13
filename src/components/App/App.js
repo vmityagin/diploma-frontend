@@ -46,13 +46,11 @@ function App() {
   const history = useHistory();
 
  /* ФУНКЦИОНАЛ РЕГИСТРАЦИИ И АВТОРИЗАЦИИ */
-
  React.useEffect(() => {
   tokenCheck();
 }, [loggedIn]);
 
 function tokenCheck() {
-  const token = localStorage.getItem('token');
   if (localStorage.getItem('token')) {
     setLoggedIn(true);
     apiMoviesUser.getInfromationUser()
@@ -104,7 +102,7 @@ React.useEffect(() => {
       setCurrentUser(res);
     })
     .catch(err => console.log(err));
-}, [location.pathname]);
+}, [location]);
 
 function signOut() {
   localStorage.removeItem('token');
@@ -122,7 +120,6 @@ function successChangeUserData(newData) {
     })
     .catch(err => console.log(err));
 }
-
   /* ФУНКЦИОНАЛ ОТРИСОВКИ КАРТОЧЕК НА СТРАНИЦЕ "ФИЛЬМЫ" */
 
   // Получаем при входе все фильмы по API
@@ -283,11 +280,10 @@ function successChangeUserData(newData) {
   /* ФУНКЦИОНАЛ ЛАЙКОВ */
 
   function checkIdCard(card) {
-    let idCard;
     if (!card.movieId) {
-      return idCard = savedMovies.find(movie => Number(movie.movieId) === card.id)._id;
+      return savedMovies.find(movie => Number(movie.movieId) === card.id)._id;
     } else {
-      return idCard = card._id;
+      return card._id;
     }
   }
 
