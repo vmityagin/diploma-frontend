@@ -127,8 +127,8 @@ function successChangeUserData(newData) {
 
   // Получаем при входе все фильмы по API
   React.useEffect(() => {
-    getApiMovies();
     preLoaderValues(false, '');
+    getApiMovies();
   }, [loggedIn]);
 
   // Функция, которая запрашивает фильмы по API
