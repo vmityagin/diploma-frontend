@@ -292,13 +292,13 @@ function successChangeUserData(newData) {
   }
 
   function handleLikeClick(card) {
-  console.log(card);
-  console.log('фильм пришёл');
-  //делаем проверку, что фильм в списке сохраненных
-  const searchFilm = savedMovies.find((movie) => Number(movie.movieId) === card.id);
-  console.log(searchFilm);
 
+  const searchFilm = savedMovies.find((movie) => Number(movie.movieId) === card.id);
   if(searchFilm) {
+    if(searchFilm.owner !== currentUser._id) {
+      console.log('Нельзя удалить чужую карточку');
+      return;
+    }
     apiMoviesUser.deleteMovieFromUserList(checkIdCard(card))
       .then((message) => {
         const searchIndex = savedMovies.indexOf(savedMovies.find((movie) => Number(movie.movieId) === card.id));
