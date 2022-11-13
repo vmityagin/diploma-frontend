@@ -39,6 +39,8 @@ function App() {
   const [ filteredMovies, setFilteredMovies ] = React.useState([]);
   const [ filteredSavedMovies, setFilteredSavedMovies ] = React.useState([]);
 
+  const [ preloaderIsActive, setPreloaderIsActive ] = React.useState(true);
+  const [ textPreloader, setTextPreloader ] = React.useState('');
 
   const location = useLocation();
   const history = useHistory();
@@ -109,6 +111,7 @@ function signOut() {
   setCurrentUser([]);
   setLoggedIn(false);
   setMoviesRender([]);
+  setQuery('');
   history.push('./signin');
 }
 
@@ -125,6 +128,7 @@ function successChangeUserData(newData) {
   // Получаем при входе все фильмы по API
   React.useEffect(() => {
     getApiMovies();
+    preLoaderValues(false, '');
   }, [loggedIn]);
 
   // Функция, которая запрашивает фильмы по API
@@ -142,15 +146,26 @@ function successChangeUserData(newData) {
       .catch(err => console.log(err));
   }
 
+  // Функция, которая определяет состояние preloader
+  function preLoaderValues(boolean, text) {
+    setPreloaderIsActive(boolean);
+    setTextPreloader(text);
+  }
+
   // Функция, срабатывающая после успешного сабмита. Сохраняет массив фильмов отфильтрованный по фразе
   function handleSubmitSearchForm(searchPhrase) {
+    setQuery(searchPhrase);
+    preLoaderValues(true, 'Идёт загрузка карточек...');
     api.loadCardMovies()
       .then((moviesList) => {
         setInitialMoviesApi(moviesList);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        preLoaderValues(true, 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+        console.log(err);
+        return;
+      });
 
-    setQuery(searchPhrase);
     const filtered = initialMoviesApi.filter((movie) => {
       let rusFilm = movie.nameRU.toLowerCase().includes(searchPhrase.toLowerCase());
       if (rusFilm) {
@@ -158,6 +173,7 @@ function successChangeUserData(newData) {
       }
       return movie.nameEN.toLowerCase().includes(searchPhrase.toLowerCase());
     });
+    filtered && preLoaderValues(false, '');
     setSubmitMovies(filtered);
   }
 
@@ -178,7 +194,6 @@ function successChangeUserData(newData) {
     setFilteredMovies(shortMoviesSubmit);
     setMoviesRender(shortMoviesSubmit.slice(0,numberCards));
   }, [isCheckBox, query]);
-
 
   // Функция, которая изменяется state бегунка короткометражки
   // на странице "Фильмы"
@@ -219,7 +234,6 @@ function successChangeUserData(newData) {
     apiMoviesUser.loadUserCardMovies()
       .then((movies) => {
         setInitialSavedMoviesApi(movies.data);
-        setQuery('');
       })
       .catch(err => console.log(err));
     setQuerySaved('');
@@ -350,6 +364,8 @@ function successChangeUserData(newData) {
             handleDeleteLikeClick={handleDeleteLikeClick}
             isPhrase={query}
             savedMovies={savedMovies}
+            preloaderIsActive={preloaderIsActive}
+            textPreloader={textPreloader}
           />
           <ProtectedRoute
             path="/saved-movies"

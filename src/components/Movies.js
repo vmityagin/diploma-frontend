@@ -20,7 +20,10 @@ function Movies({
   handleLikeClick,
   handleDeleteLikeClick,
   savedMovies,
+  preloaderIsActive,
+  textPreloader,
 }) {
+    console.log(isPhrase);
     return (
       <div className="page">
         <Header
@@ -35,13 +38,28 @@ function Movies({
             handleSubmitSearchForm={handleSubmitSearchForm}
             isPhrase={isPhrase}
           />
-          <MoviesCardList
+          {
+            (moviesRender.length === 0) && (isPhrase !== '')?
+            <MoviesCardList
             moviesRender={moviesRender}
             isLike={isLike}
             handleLikeClick={handleLikeClick}
             handleDeleteLikeClick={handleDeleteLikeClick}
             savedMovies={savedMovies}
+            preloaderIsActive={true}
+            textPreloader={'Ничего не найдено'}
             />
+            :
+            <MoviesCardList
+              moviesRender={moviesRender}
+              isLike={isLike}
+              handleLikeClick={handleLikeClick}
+              handleDeleteLikeClick={handleDeleteLikeClick}
+              savedMovies={savedMovies}
+              preloaderIsActive={preloaderIsActive}
+              textPreloader={textPreloader}
+              />
+          }
           <More
             isVisible={isVisible}
             handleButtonYet={handleButtonYet}

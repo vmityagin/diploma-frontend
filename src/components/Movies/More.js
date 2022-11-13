@@ -6,9 +6,9 @@ function More({ isVisible, handleButtonYet }) {
     <>
       {
         isVisible &&
-        <section className="preloader">
-        <button onClick={handleButtonYet} className="preloader__button">
-          <p className="preloader__name">Ещё</p>
+        <section className="more">
+        <button onClick={handleButtonYet} className="more__button">
+          <p className="more__name">Ещё</p>
         </button>
       </section>
       }

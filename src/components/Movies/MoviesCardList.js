@@ -7,25 +7,34 @@ function MoviesCardList({
   handleLikeClick,
   handleDeleteLikeClick,
   savedMovies,
+  preloaderIsActive,
+  textPreloader,
 })
 {
 
   return (
     <section className="MoviesCardList">
-      <ul className="MoviesElements">
       {
-        moviesRender.map((movie, index) => (
-          <MoviesCard
-            movie={movie}
-            key={movie.id}
-            isLike={isLike}
-            handleLikeClick={handleLikeClick}
-            handleDeleteLikeClick={handleDeleteLikeClick}
-            savedMovies={savedMovies}
-          />
-        ))
+        preloaderIsActive ?
+        <div className="preloader">
+          <p className="preloader__text">{textPreloader}</p>
+        </div>
+        :
+          <ul className="MoviesElements">
+          {
+            moviesRender.map((movie, index) => (
+              <MoviesCard
+                movie={movie}
+                key={movie.id}
+                isLike={isLike}
+                handleLikeClick={handleLikeClick}
+                handleDeleteLikeClick={handleDeleteLikeClick}
+                savedMovies={savedMovies}
+              />
+            ))
+          }
+          </ul>
       }
-      </ul>
     </section>
   );
 }
