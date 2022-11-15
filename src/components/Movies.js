@@ -23,7 +23,6 @@ function Movies({
   preloaderIsActive,
   textPreloader,
 }) {
-    console.log(isPhrase);
     return (
       <div className="page">
         <Header
@@ -39,7 +38,8 @@ function Movies({
             isPhrase={isPhrase}
           />
           {
-            (moviesRender.length === 0) && (isPhrase !== '')?
+            (moviesRender.length === 0) && (isPhrase !== '')
+            ?
             <MoviesCardList
             moviesRender={moviesRender}
             isLike={isLike}
@@ -48,6 +48,7 @@ function Movies({
             savedMovies={savedMovies}
             preloaderIsActive={true}
             textPreloader={'Ничего не найдено'}
+            isLoad={false}
             />
             :
             <MoviesCardList
@@ -58,6 +59,7 @@ function Movies({
               savedMovies={savedMovies}
               preloaderIsActive={preloaderIsActive}
               textPreloader={textPreloader}
+              isLoad={true}
               />
           }
           <More

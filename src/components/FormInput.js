@@ -1,7 +1,6 @@
 import React from 'react';
 
 function FormInput({ errorMessage, label, onChange, value, validList, id, ...input}) {
-  const [ formValid, setFormValid ] = React.useState(false);
   const [ focused, setFocused ] = React.useState(false);
 
   function handleFocus(e) {

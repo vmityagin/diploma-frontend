@@ -1,5 +1,5 @@
 import React from 'react';
-import apiMain from '../../utils/MainApi';
+import { useLocation } from 'react-router-dom';
 
 function MoviesCard({
   movie,
@@ -7,7 +7,6 @@ function MoviesCard({
   handleDeleteLikeClick,
   savedMovies,
 }) {
-  const [ allApiSavedMovies, setAllApiSavedMovies ] = React.useState([]);
 
   function timeCalculate(duration) {
     let timeString = (duration / 60).toFixed(2).split('.');
@@ -19,11 +18,6 @@ function MoviesCard({
   const cardLikeButtonClassName = (
     `${statusLike ? 'moviesElement__like_active' : 'moviesElement__like'}`
   );
-
-  React.useEffect(() => {
-    console.log(statusLike);
-  },[statusLike]);
-
 
   function handleLike() {
     handleLikeClick(movie);

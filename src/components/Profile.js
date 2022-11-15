@@ -4,11 +4,12 @@ import EditInput from "../components/EditInput";
 import {CurrentUserContext} from '../context/CurrentUserContext';
 import {inputsEdit, regularEmailRegExp} from '../utils/constants';
 
-function Profile({signOut, successChangeUserData, loggedIn}) {
+function Profile({signOut, successChangeUserData, loggedIn, isOpen}) {
   const userContext = React.useContext(CurrentUserContext);
 
   const [ isEdit, setIsEdit ] = React.useState(false);
   const [ successSubmit, setSuccessSubmit ] = React.useState(false);
+  const [ isDisabled, setIsDisabled ] = React.useState(true);
 
   const [ validList, setValidList ] = React.useState({
     userName: false,
@@ -23,40 +24,56 @@ function Profile({signOut, successChangeUserData, loggedIn}) {
     validValues();
 }, [isEdit]);
 
-  function validValueInputChange(e) {
-    if (e.target.name === "userEmail") {
-      e.target.value.match(regularEmailRegExp) ? setValidList({...validList, [e.target.name]: true }) : setValidList({...validList, [e.target.name]: false });
-    } else if (e.target.name === "userName") {
-      e.target.value.length >= 2 && e.target.value.length <= 30 ? setValidList({...validList, [e.target.name]: true }) : setValidList({...validList, [e.target.name]: false });
+function validValueInputChange(e) {
+  if (e.target.name === "userEmail") {
+    if (e.target.value.match(regularEmailRegExp)) {
+      setValidList({...validList, [e.target.name]: true })
+    } else {
+      setIsDisabled(true);
+      setValidList({...validList, [e.target.name]: false });
+    }
+  } else if (e.target.name === "userName") {
+    if (e.target.value.length >= 5 && e.target.value.length <= 29) {
+      setValidList({...validList, [e.target.name]: true })
+    }  else {
+      setIsDisabled(true);
+      setValidList({...validList, [e.target.name]: false });
     }
   }
+}
 
   function validValues() {
-    values.userName.length >= 2 && values.userName.length <= 30 ? setValidList({...validList, userName: true }) : setValidList({...validList, userName: false });
+    values.userName.length >= 6 && values.userName.length <= 30 ? setValidList({...validList, userName: true }) : setValidList({...validList, userName: false });
     regularEmailRegExp.test(values.userEmail) ? setValidList({...validList, userEmail: true }) : setValidList({...validList, userEmail: false });
   }
 
   const onChange = (e) => {
     setValues({...values, [e.target.name]: e.target.value });
     validValueInputChange(e);
+    e.target.value === '' && setIsDisabled(true);
   };
 
   function handleSubmit(e) {
     e.preventDefault();
-    setIsEdit(false);
-    console.log(values);
+    setIsDisabled(true);
     successChangeUserData(values);
+    setIsEdit(false);
   }
 
-  function openEdit(e) {
+  function openEdit() {
     setIsEdit(true);
     validValues();
   }
+
+  React.useEffect(() => {
+    setIsDisabled(!Object.values(validList).every(el => el));
+  }, [values])
 
   return (
     <div className="page">
       <Header
         loggedIn={loggedIn}
+        onClick={isOpen}
       />
       <main >
         <form className="profile" onSubmit={handleSubmit}>
@@ -82,7 +99,7 @@ function Profile({signOut, successChangeUserData, loggedIn}) {
                 <button
                   className="profile__submit"
                   onClick={handleSubmit}
-                  disabled={!Object.values(validList).every(el => el)}
+                  disabled={isDisabled}
                 >
                   Сохранить
                 </button>

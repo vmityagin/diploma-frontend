@@ -93,6 +93,8 @@
 @import url('./blocks/search/__nameBox/search__nameBox.css');
 
 @import url('./blocks/preloader/preloader.css');
+@import url('./blocks/preloader/__ring/ids-ring.css');
+@import url('./blocks/preloader/__ring/ids-ring_active.css');
 @import url('./blocks/preloader/__text/preloader__text.css');
 
 @import url('./blocks/moviesElements/moviesElements.css');
@@ -161,3 +163,10 @@
 @import url('./blocks/popup/__menu/popup__menu.css');
 @import url('./blocks/popup/__element/popup__element.css');
 @import url('./blocks/popup/_active/popup_active.css');
+
+@import url('./blocks/modalPopup/modalPopup.css');
+@import url('./blocks/modalPopup/_active/modalPopup_active.css');
+@import url('./blocks/modalPopup/__box/modalPopup__box.css');
+@import url('./blocks/modalPopup/__image/modalPopup__image.css');
+@import url('./blocks/modalPopup/__message/modalPopup__message.css');
+@import url('./blocks/modalPopup/__cross/modalPopup__cross.css');

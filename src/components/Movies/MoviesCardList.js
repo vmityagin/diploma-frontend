@@ -9,15 +9,21 @@ function MoviesCardList({
   savedMovies,
   preloaderIsActive,
   textPreloader,
+  isLoad,
 })
 {
-
   return (
     <section className="MoviesCardList">
       {
         preloaderIsActive ?
         <div className="preloader">
           <p className="preloader__text">{textPreloader}</p>
+          <div className={isLoad ? 'lds-ring lds-ring_active' : 'lds-ring'}>
+            <div ></div>
+            <div ></div>
+            <div ></div>
+            <div ></div>
+          </div>
         </div>
         :
           <ul className="MoviesElements">

@@ -16,24 +16,46 @@ function Register({ buttonText, handleSubmitAuthForm }) {
     userPassword: "",
   })
 
+  const [ isDisabled, setIsDisabled ] = React.useState(true);
+
   function validValue(e) {
+    console.log(validList);
     if (e.target.name === "userEmail") {
-      e.target.value.match(regularEmailRegExp) ? setValidList({...validList, [e.target.name]: true }) : setValidList({...validList, [e.target.name]: false });
-    } else if (e.target.name === "userName") {
-      e.target.value.length >= 2 && e.target.value.length <= 30 ? setValidList({...validList, [e.target.name]: true }) : setValidList({...validList, [e.target.name]: false });
-    } else if (e.target.name === "userPassword") {
-      e.target.value.length >= 6 && e.target.value.length <= 30 ? setValidList({...validList, [e.target.name]: true }) : setValidList({...validList, [e.target.name]: false });
+      if (e.target.value.match(regularEmailRegExp)) {
+        setValidList({...validList, [e.target.name]: true });
+      } else {
+        setValidList({...validList, [e.target.name]: false });
+        setIsDisabled(true);
+      }
+    } else if (e.target.name === "userName" || e.target.name === "userPassword") {
+      if (e.target.value.length >= 6 && e.target.value.length <= 30) {
+        setValidList({...validList, [e.target.name]: true });
+      }  else {
+        setValidList({...validList, [e.target.name]: false });
+        setIsDisabled(true);
+      }
     }
   }
 
   const onChange = (e) => {
     setValues({...values, [e.target.name]: e.target.value });
     validValue(e);
+    e.target.value === '' && setIsDisabled(true);
+    checkStatusButton();
   };
 
   function handleSubmit(e) {
     e.preventDefault();
+    setIsDisabled(true);
     handleSubmitAuthForm(values);
+  }
+
+  React.useEffect(() => {
+    setIsDisabled(!Object.values(validList).every(el => el));
+  }, [values])
+
+  function checkStatusButton() {
+    setIsDisabled(!Object.values(validList).every(el => el));
   }
 
   return (
@@ -54,7 +76,7 @@ function Register({ buttonText, handleSubmitAuthForm }) {
 
         <footer className="form__footer">
           <button
-            disabled={!Object.values(validList).every(el => el)}
+            disabled={isDisabled}
             className="form__button"
             type="submit"
           >
