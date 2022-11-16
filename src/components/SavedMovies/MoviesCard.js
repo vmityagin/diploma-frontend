@@ -1,9 +1,5 @@
-import { computeHeadingLevel } from '@testing-library/react';
 import React from 'react';
-import {Link} from 'react-router-dom';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
-import moviesPoster from '../../images/moviesElement__image.jpg';
-
 
 function MoviesCard({
   movie,
@@ -11,11 +7,10 @@ function MoviesCard({
   index,
 }) {
   const userContext = React.useContext(CurrentUserContext);
-
   const isOwn = movie.owner === userContext.data._id;
 
   function timeCalculate(duration) {
-    let timeString = (duration / 60).toFixed(2).split('.');
+    const timeString = (duration / 60).toFixed(2).split('.');
     return timeString;
   }
 

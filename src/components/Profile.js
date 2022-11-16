@@ -8,7 +8,6 @@ function Profile({signOut, successChangeUserData, loggedIn, isOpen}) {
   const userContext = React.useContext(CurrentUserContext);
 
   const [ isEdit, setIsEdit ] = React.useState(false);
-  const [ successSubmit, setSuccessSubmit ] = React.useState(false);
   const [ isDisabled, setIsDisabled ] = React.useState(true);
 
   const [ validList, setValidList ] = React.useState({
@@ -33,7 +32,7 @@ function validValueInputChange(e) {
       setValidList({...validList, [e.target.name]: false });
     }
   } else if (e.target.name === "userName") {
-    if (e.target.value.length >= 5 && e.target.value.length <= 29) {
+    if (e.target.value.length >= 2 && e.target.value.length <= 30) {
       setValidList({...validList, [e.target.name]: true })
     }  else {
       setIsDisabled(true);
@@ -93,9 +92,6 @@ function validValueInputChange(e) {
                     ))
                   }
                 </div>
-                <span className={successSubmit ?  "profile__error" : "profile__label"} >
-                  При обновлении профиля произошла ошибка
-                </span>
                 <button
                   className="profile__submit"
                   onClick={handleSubmit}

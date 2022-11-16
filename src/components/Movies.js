@@ -22,6 +22,7 @@ function Movies({
   savedMovies,
   preloaderIsActive,
   textPreloader,
+  preloaderValues,
 }) {
     return (
       <div className="page">
@@ -36,6 +37,7 @@ function Movies({
             isCheckBox={isCheckBox}
             handleSubmitSearchForm={handleSubmitSearchForm}
             isPhrase={isPhrase}
+            preloaderValues={preloaderValues}
           />
           {
             (moviesRender.length === 0) && (isPhrase !== '')

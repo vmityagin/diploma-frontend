@@ -53,29 +53,71 @@ function App() {
  /* ФУНКЦИОНАЛ РЕГИСТРАЦИИ И АВТОРИЗАЦИИ */
  React.useEffect(() => {
   tokenCheck();
+  preloaderValues(false, '');
 }, [loggedIn]);
 
-function tokenCheck() {
-  if (localStorage.getItem('token')) {
+React.useEffect(() => {
+  getApiMovies();
+}, [currentUser]);
+
+React.useEffect(() => {
+  if(loggedIn) {
     apiMoviesUser.getInfromationUser()
       .then((res) => {
-        if(!res.message) {
-          setLoggedIn(true);
-          setCurrentUser(res);
-          history.push(location.pathname);
-          return;
+        if(res.message) {
+          signOut();
+          setLoggedIn(false);
+          upliftPopup(`Некорректный токен. Авторизуйтесь снова`, false);
         }
-        upliftPopup(res.message, false);
-        setLoggedIn(false);
       })
       .catch((err) => {
         setLoggedIn(false);
-        upliftPopup(`Возникла ошибка при отправке запроса на сервер: ${err.message}`, false);
-        console.log(err);
+        upliftPopup(err, false);
+      });
+  }
+}, [location]);
+
+function tokenCheck() {
+  const token = localStorage.getItem('token');
+  if (token) {
+    apiMoviesUser.getInfromationUser()
+      .then((res) => {
+        if(!res.message) {
+          setCurrentUser(res);
+          setLoggedIn(true);
+          history.push(location.pathname);
+          return;
+        }
+        signOut();
+        setLoggedIn(false);
+        upliftPopup(`Некорректный токен. Авторизуйтесь снова`, false);
+      })
+      .catch((err) => {
+        setLoggedIn(false);
+        upliftPopup(err, false);
       });
   } else {
     setLoggedIn(false);
   }
+}
+
+function getApiMovies() {
+  api.loadCardMovies()
+  .then((moviesList) => {
+    setInitialMoviesApi(moviesList);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+  apiMoviesUser.loadUserCardMovies()
+    .then((movies) => {
+      setInitialSavedMoviesApi(movies.data.filter(movie => movie.owner === currentUser.data._id));
+      setSavedMovies(movies.data.filter(movie => movie.owner === currentUser.data._id));
+    })
+  .catch((err) => {
+    console.log(err);
+  });
 }
 
 function handleSubmitRegisterForm(data) {
@@ -88,7 +130,6 @@ function handleSubmitRegisterForm(data) {
         }
       })
       .catch((err) => {
-        upliftPopup(`Возникла ошибка при отправке запроса на сервер: ${err.message}`);
         console.log(err);
       })
   }
@@ -102,32 +143,15 @@ function handleSubmitLogin(data) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('query', '');
       history.push('/movies');
+      return;
     }
   })
   .catch((err) => {
-    upliftPopup(`Возникла ошибка при отправке запроса на сервер: ${err.message}`, false);
     console.log(err);
   });
 }
 
-React.useEffect(() => {
-  if (loggedIn) {
-    apiMoviesUser.getInfromationUser()
-      .then((res) => {
-        if (!res.message) {
-          setCurrentUser(res);
-          setLoggedIn(true);
-          return;
-        }
-        upliftPopup('Что-то пошло не так', false);
-        setLoggedIn(false);
-      })
-      .catch((err) => {
-        upliftPopup(`Возникла ошибка при отправке запроса на сервер: ${err.message}`, false);
-        setLoggedIn(false);
-      });
-  }
-}, [location]);
+
 
 function signOut() {
   setMoviesRender([]);
@@ -153,78 +177,59 @@ function upliftPopup(message, status) {
 }
 
 function successChangeUserData(newData) {
+  if(newData.userName === currentUser.data.name && newData.userEmail === currentUser.data.email) {
+    upliftPopup(`Изменения не сохранены. Новые данные должны отличаться от текущих`, false);
+    return;
+  }
   apiMoviesUser.changeUserData(newData)
     .then((res) => {
       setCurrentUser(res);
       upliftPopup('Данные успешно сохранены', true);
     })
-    .catch(err => {
-      upliftPopup(`Возникла ошибка при отправке запроса на сервер: ${err.message}`, false);
-      console.log(err);
+    .catch((err) => {
+      if(err.includes('401')) {
+        signOut();
+        setLoggedIn(false);
+        upliftPopup(`Некорректный токен. Авторизуйтесь снова`, false);
+        return;
+      }
+      upliftPopup(err, false);
     });
 }
   /* ФУНКЦИОНАЛ ОТРИСОВКИ КАРТОЧЕК НА СТРАНИЦЕ "ФИЛЬМЫ" */
 
-  // Получаем при входе все фильмы по API
-  React.useEffect(() => {
-    if(loggedIn) {
-      getApiMovies();
-      setQuery('');
-      preLoaderValues(false, '');
-    }
-  }, [loggedIn]);
-
-  // Функция, которая запрашивает фильмы по API
-  function getApiMovies() {
-    api.loadCardMovies()
-      .then((moviesList) => {
-        setInitialMoviesApi(moviesList);
-      })
-      .catch((err) => {
-        upliftPopup(`Возникла ошибка при отправке запроса на сервер: ${err.message}`, false);
-        console.log(err)});
-
-    apiMoviesUser.loadUserCardMovies()
-      .then((movies) => {
-        setInitialSavedMoviesApi(movies.data);
-      })
-      .catch(err => {
-        upliftPopup(`Возникла ошибка при отправке запроса на сервер: ${err.message}`, false);
-        console.log(err)});
-  }
-
   // Функция, которая определяет состояние preloader
-  function preLoaderValues(boolean, text) {
+  function preloaderValues(boolean, text) {
     setPreloaderIsActive(boolean);
     setTextPreloader(text);
+    setIsVisible(false);
   }
 
   // Функция, срабатывающая после успешного сабмита. Сохраняет массив фильмов отфильтрованный по фразе
   function handleSubmitSearchForm(searchPhrase) {
-    preLoaderValues(true, 'Идёт загрузка карточек...');
     setQuery(searchPhrase);
     localStorage.setItem('query', searchPhrase);
     localStorage.setItem('checkBox', isCheckBox);
+
     api.loadCardMovies()
       .then((moviesList) => {
         setInitialMoviesApi(moviesList);
       })
       .catch((err) => {
-        preLoaderValues(true, 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
         console.log(err);
+        preloaderValues(true, 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
         return;
       });
-
-    const filtered = initialMoviesApi.filter((movie) => {
-      let rusFilm = movie.nameRU.toLowerCase().includes(searchPhrase.toLowerCase());
-      if (rusFilm) {
-        return movie;
-      }
-      return movie.nameEN.toLowerCase().includes(searchPhrase.toLowerCase());
-    });
-    filtered && preLoaderValues(false, '');
-    setSubmitMovies(filtered);
+      const filtered = initialMoviesApi.filter((movie) => {
+        const rusFilm = movie.nameRU.toLowerCase().includes(searchPhrase.toLowerCase());
+        if (rusFilm) {
+          return movie;
+        }
+        return movie.nameEN.toLowerCase().includes(searchPhrase.toLowerCase());
+      });
+    filtered && preloaderValues(false, '');
     localStorage.setItem('renderMovies', JSON.stringify(filtered));
+    setSubmitMovies(filtered);
   }
 
   // Первая отрисовка карточек после сабмита.
@@ -234,10 +239,8 @@ function successChangeUserData(newData) {
     const numberCards = checkWidthScreen();
     if (isCheckBox === false) {
       setMoviesRender(submitMovies.slice(0,numberCards));
-      buttonYetCheckVisible();
       return;
     }
-
     const shortMoviesSubmit = submitMovies.filter((element) => {
       return element.duration <= 40;
     })
@@ -256,11 +259,11 @@ function successChangeUserData(newData) {
   // Когда пользователь нажал кнопку "Еще"
   function handleButtonYet() {
     if (isCheckBox === false) {
-      let newPart = moviesRender.concat(renderMoviesPage(submitMovies, moviesRender));
+      const newPart = moviesRender.concat(renderMoviesPage(submitMovies, moviesRender));
       setMoviesRender(newPart);
       return;
     }
-    let newShortPart = moviesRender.concat(renderMoviesPage(filteredMovies, moviesRender));
+    const newShortPart = moviesRender.concat(renderMoviesPage(filteredMovies, moviesRender));
     setMoviesRender(newShortPart);
   }
 
@@ -280,16 +283,18 @@ function successChangeUserData(newData) {
   }
 
   /* ФУНКЦИОНАЛ ДЛЯ ОТРИСОВКИ ИЗ LOCALSTORAGE */
-  React.useEffect(() => {
+  React.useEffect( () => {
+    getApiMovies();
     const renderMovies = localStorage.getItem('renderMovies');
-    const query = localStorage.getItem('query');
     const checkBox = localStorage.getItem('checkBox');
-    if(renderMovies && renderMovies.length) {
-      setSubmitMovies(JSON.parse(renderMovies));
-      setQuery(query);
-      setIsCheckBox(JSON.parse(checkBox));
-      return;
-    }
+    const query = localStorage.getItem('query');
+    setTimeout(() => {
+      if(renderMovies && renderMovies.length) {
+        setSubmitMovies(JSON.parse(renderMovies));
+        setIsCheckBox(JSON.parse(checkBox));
+        setQuery(query);
+      }
+    }, 1000, renderMovies, checkBox, query);
   }, []);
 
 
@@ -299,39 +304,15 @@ function successChangeUserData(newData) {
       apiMoviesUser.loadUserCardMovies()
         .then((movies) => {
           setInitialSavedMoviesApi(movies.data.filter(movie => movie.owner === currentUser.data._id));
+          setSavedMovies(movies.data.filter(movie => movie.owner === currentUser.data._id));
         })
-        .catch(err => {
-          console.log(err)});
+        .catch((err) => {
+          console.log(err);
+        });
       setQuerySaved('');
       setIsCheckBoxSaved(false);
     }
-  }, [location, savedMovies]);
-
-  React.useEffect(() => {
-    if (loggedIn) {
-      if(querySaved) {
-        if (isCheckBoxSaved) {
-          const shortMoviesSavedSubmit = filteredSavedMovies.filter((element) => {
-            return element.duration <= 40;
-          })
-          setSavedMovies(shortMoviesSavedSubmit);
-          return;
-        }
-        setSavedMovies(filteredSavedMovies);
-        return;
-      }
-
-      if (isCheckBoxSaved) {
-        const shortMoviesSavedSubmit = initialSavedMoviesApi.filter((element) => {
-          return element.duration <= 40;
-        })
-        setSavedMovies(shortMoviesSavedSubmit);
-        return;
-      }
-      setSavedMovies(initialSavedMoviesApi);
-    }
-  }, [isCheckBoxSaved, querySaved, location]);
-
+  }, []);
 
   function submitSavedForm(searchPhrase) {
     setQuerySaved(searchPhrase);
@@ -348,6 +329,34 @@ function successChangeUserData(newData) {
   function handleCheckBoxSaved() {
     setIsCheckBoxSaved(!isCheckBoxSaved);
   }
+
+  React.useEffect(() => {
+    if(querySaved) {
+      if (isCheckBoxSaved) {
+        const shortMoviesSavedSubmit = filteredSavedMovies.filter((element) => {
+          return element.duration <= 40;
+        })
+        setSavedMovies(shortMoviesSavedSubmit);
+        return;
+      }
+      setSavedMovies(filteredSavedMovies);
+      return;
+    }
+
+    if (isCheckBoxSaved) {
+      const shortMoviesSavedSubmit = initialSavedMoviesApi.filter((element) => {
+        return element.duration <= 40;
+      })
+      setSavedMovies(shortMoviesSavedSubmit);
+      return;
+    }
+    setSavedMovies(initialSavedMoviesApi);
+  }, [isCheckBoxSaved, querySaved]);
+
+  React.useEffect(() => {
+    setQuerySaved(false);
+    setIsCheckBoxSaved(false);
+  }, [location]);
 
   /* ФУНКЦИОНАЛ ЛАЙКОВ */
 
@@ -372,31 +381,45 @@ function successChangeUserData(newData) {
           setSavedMovies([...savedMovies.slice(0,searchIndex), ...savedMovies.slice(searchIndex + 1)]);
         })
         .catch((err) => {
-          upliftPopup(`Возникла ошибка при отправке запроса на сервер: ${err.message}`, false);
-          console.log(err);
+          if(err.includes('401')) {
+            signOut();
+            setLoggedIn(false);
+            upliftPopup(`Некорректный токен. Авторизуйтесь снова`, false);
+            return;
+          }
+          upliftPopup(err, false);
         })
       return;
     }
     apiMoviesUser.savedMovieInUserList(card)
-        .then((movie) => {
-          setSavedMovies([...savedMovies, movie.data]);
+        .then((res) => {
+          setSavedMovies([...savedMovies, res.data]);
         })
         .catch((err) => {
-          upliftPopup(`Возникла ошибка при отправке запроса на сервер: ${err.message}`, false);
-          console.log(err);
+          if(err.includes('401')) {
+            signOut();
+            setLoggedIn(false);
+            upliftPopup(`Некорректный токен. Авторизуйтесь снова`, false);
+            return;
+          }
+          upliftPopup(err, false);
         })
   }
 
   function handleDeleteLikeClick(card, index) {
-    console.log(card);
-    console.log('фильм удален');
     apiMoviesUser.deleteMovieFromUserList(card._id)
-    .then((message) => {
-      setSavedMovies([...savedMovies.slice(0,index), ...savedMovies.slice(index + 1)]);
-    })
-    .catch((err) => {
-      upliftPopup(`Возникла ошибка при отправке запроса на сервер: ${err.message}`, false);
-    })
+      .then((message) => {
+        setSavedMovies([...savedMovies.slice(0,index), ...savedMovies.slice(index + 1)]);
+      })
+      .catch((err) => {
+        if(err.includes('401')) {
+          signOut();
+          setLoggedIn(false);
+          upliftPopup(`Некорректный токен. Авторизуйтесь снова`, false);
+          return;
+        }
+        upliftPopup(err, false);
+      })
   }
 
   /* ФУНКЦИОНАЛ НАВИГАЦИИ */
@@ -439,6 +462,7 @@ function successChangeUserData(newData) {
             savedMovies={savedMovies}
             preloaderIsActive={preloaderIsActive}
             textPreloader={textPreloader}
+            preloaderValues={preloaderValues}
           />
           <ProtectedRoute
             path="/saved-movies"
@@ -451,7 +475,6 @@ function successChangeUserData(newData) {
             submitSavedForm={submitSavedForm}
             handleCheckBox={handleCheckBoxSaved}
             isCheckBoxSaved={isCheckBoxSaved}
-
           />
           <ProtectedRoute
             path="/profile"
@@ -472,7 +495,7 @@ function successChangeUserData(newData) {
           </Route>
         </Switch>
         <NavigationPopup isOpen={isNavigationPopup} onClose={closePopup} />
-        <ModalApi isOpen={isModalOpen} onClose={closeModelPopup} modalMessage={modalMessage} status={statusModal}/>
+        <ModalApi isOpen={isModalOpen} onClose={closeModelPopup} modalMessage={modalMessage} status={statusModal} />
       </CurrentUserContext.Provider>
   );
 }

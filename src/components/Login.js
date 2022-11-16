@@ -29,7 +29,7 @@ function Login({ buttonText, handleSubmitLogin }) {
         setIsDisabled(true);
       }
     } else if (e.target.name === "userPassword") {
-      if (e.target.value.length >= 6 && e.target.value.length <= 30) {
+      if (e.target.value.length >= 2 && e.target.value.length <= 30) {
         setValidList({...validList, [e.target.name]: true })
       }  else {
         setValidList({...validList, [e.target.name]: false });

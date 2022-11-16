@@ -27,7 +27,14 @@ function Register({ buttonText, handleSubmitAuthForm }) {
         setValidList({...validList, [e.target.name]: false });
         setIsDisabled(true);
       }
-    } else if (e.target.name === "userName" || e.target.name === "userPassword") {
+    } else if (e.target.name === "userName") {
+      if (e.target.value.length >= 2 && e.target.value.length <= 30) {
+        setValidList({...validList, [e.target.name]: true });
+      }  else {
+        setValidList({...validList, [e.target.name]: false });
+        setIsDisabled(true);
+      }
+    } else if (e.target.name === "userPassword") {
       if (e.target.value.length >= 6 && e.target.value.length <= 30) {
         setValidList({...validList, [e.target.name]: true });
       }  else {

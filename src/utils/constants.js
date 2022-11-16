@@ -99,7 +99,6 @@ function sortShortMovies(array) {
 function renderMoviesPage(allMoviesList, pageMoviesList) {
 
   let incrementStep = checkWidthScreen();
-
   let numberDiff = allMoviesList.length - pageMoviesList.length;
 
   const lengthPageArray = pageMoviesList.length;

@@ -7,7 +7,8 @@ function SearchForm({
   handleCheckBox,
   isCheckBox,
   type,
-  isPhrase
+  isPhrase,
+  preloaderValues,
 }) {
   const [ focused, setFocused ] = React.useState(false);
   const [ formValid, setFormValid ] = React.useState(false);
@@ -23,6 +24,11 @@ function SearchForm({
     }
   },[values])
 
+  useEffect(() => {
+    const query = localStorage.getItem('query');
+    setValues({ ...values, userText: query });
+  },[])
+
   function handleFocus(e) {
     setFocused(true);
   }
@@ -33,8 +39,11 @@ function SearchForm({
 
   function handleSubmit(e) {
     e.preventDefault();
-    handleSubmitSearchForm(values.userText, type);
+    preloaderValues(true, 'Идёт загрузка карточек...');
+    setTimeout(handleSubmitSearchForm, 2000, values.userText, type)
   }
+
+
 
   return (
     <section className="search">

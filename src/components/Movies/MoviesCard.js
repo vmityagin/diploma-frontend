@@ -9,7 +9,7 @@ function MoviesCard({
 }) {
 
   function timeCalculate(duration) {
-    let timeString = (duration / 60).toFixed(2).split('.');
+    const timeString = (duration / 60).toFixed(2).split('.');
     return timeString;
   }
 
