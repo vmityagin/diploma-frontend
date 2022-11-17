@@ -7,10 +7,10 @@ import Techs from './Main/Techs';
 import Portfolio from './Main/Portfolio';
 import Footer from './Footer';
 
-function Main() {
+function Main({ loggedIn, isOpen }) {
     return (
       <div className="page">
-        <Header />
+        <Header loggedIn={loggedIn} onClick={isOpen}/>
         <main>
           <Promo />
           <NavTab />

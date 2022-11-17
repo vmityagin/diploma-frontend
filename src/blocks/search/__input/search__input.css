@@ -3,6 +3,7 @@
   width: 100%;
   min-height: 34px;
   border: none;
+  outline: none;
 
   font-family: 'Inter';
   font-style: normal;
@@ -13,6 +14,11 @@
   text-align: center;
 
   color: #A0A0A0;
+}
+
+
+.search__input:invalid {
+  display: block;
 }
 
 @media screen and (max-width: 450px) {

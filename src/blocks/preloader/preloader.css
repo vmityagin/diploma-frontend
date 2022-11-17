@@ -1,12 +1,14 @@
 .preloader {
-  max-width: 1280px;
+  width: 100%;
   height: 100%;
-  padding: 0;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-@media screen and (max-width: 425px) {
-  .preloader {
-    padding: 29px 0 33px;
-  }
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
 }

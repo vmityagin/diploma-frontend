@@ -1,0 +1,17 @@
+.modalPopup {
+  visibility: hidden;
+  opacity: 0;
+
+  width: 250px;
+  height: 100px;
+  padding: 10px;
+  margin: 0 auto;
+
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+
+  background-color: grey;
+  border-radius: 10px;
+}

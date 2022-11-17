@@ -1,0 +1,6 @@
+.form__box {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  margin: 0 0 5px 0;
+}

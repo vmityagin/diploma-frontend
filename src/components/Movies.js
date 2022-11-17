@@ -2,21 +2,72 @@ import React from 'react';
 import Header from './Header';
 import SearchForm from './Movies/SearchForm';
 import MoviesCardList from './Movies/MoviesCardList';
-import Preloader from './Movies/Preloader';
+import More from './Movies/More';
 import Footer from './Footer';
 
-function Movies({ isLoggedIn, isOpen, onClose }) {
+function Movies({
+  loggedIn,
+  isOpen,
+  onClose,
+  handleCheckBox,
+  isCheckBox,
+  moviesRender,
+  handleSubmitSearchForm,
+  handleButtonYet,
+  isVisible,
+  isPhrase,
+  isLike,
+  handleLikeClick,
+  handleDeleteLikeClick,
+  savedMovies,
+  preloaderIsActive,
+  textPreloader,
+  preloaderValues,
+}) {
     return (
       <div className="page">
         <Header
-          isLoggedIn={true}
+          loggedIn={loggedIn}
           onClick={isOpen}
           onClose={onClose}
         />
         <main >
-          <SearchForm />
-          <MoviesCardList typeButton="like" />
-          <Preloader />
+          <SearchForm
+            handleCheckBox={handleCheckBox}
+            isCheckBox={isCheckBox}
+            handleSubmitSearchForm={handleSubmitSearchForm}
+            isPhrase={isPhrase}
+            preloaderValues={preloaderValues}
+          />
+          {
+            (moviesRender.length === 0) && (isPhrase !== '')
+            ?
+            <MoviesCardList
+            moviesRender={moviesRender}
+            isLike={isLike}
+            handleLikeClick={handleLikeClick}
+            handleDeleteLikeClick={handleDeleteLikeClick}
+            savedMovies={savedMovies}
+            preloaderIsActive={true}
+            textPreloader={'Ничего не найдено'}
+            isLoad={false}
+            />
+            :
+            <MoviesCardList
+              moviesRender={moviesRender}
+              isLike={isLike}
+              handleLikeClick={handleLikeClick}
+              handleDeleteLikeClick={handleDeleteLikeClick}
+              savedMovies={savedMovies}
+              preloaderIsActive={preloaderIsActive}
+              textPreloader={textPreloader}
+              isLoad={true}
+              />
+          }
+          <More
+            isVisible={isVisible}
+            handleButtonYet={handleButtonYet}
+          />
         </main>
         <Footer />
       </div>

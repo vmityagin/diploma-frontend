@@ -1,0 +1,11 @@
+.modalPopup_active {
+  visibility: visible;
+  transform: translateX(-150%);
+  animation: ani 1s forwards;
+  opacity: 1;
+}
+
+@keyframes ani {
+  0% {transform: translateX(150%);}
+  100% {transform: translateY(0);}
+}

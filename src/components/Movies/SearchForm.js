@@ -1,29 +1,76 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import searchIcon from '../../images/search__icon.svg';
+import { inputsSearch } from '../../utils/constants';
 
-function SearchForm() {
+function SearchForm({
+  handleSubmitSearchForm,
+  handleCheckBox,
+  isCheckBox,
+  type,
+  isPhrase,
+  preloaderValues,
+}) {
+  const [ focused, setFocused ] = React.useState(false);
+  const [ formValid, setFormValid ] = React.useState(false);
+  const [ values, setValues] = React.useState({
+    userText: `${isPhrase || ''}`,
+  });
 
-  const [ isCheckBox, setIsCheckBox ] = React.useState(false);
+  useEffect(() => {
+    if ( values.userText ) {
+      setFormValid(true);
+    } else {
+      setFormValid(false);
+    }
+  },[values])
+
+  useEffect(() => {
+    const query = localStorage.getItem('query');
+    setValues({ ...values, userText: query });
+  },[])
+
+  function handleFocus(e) {
+    setFocused(true);
+  }
+
+  function onChange(e) {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    preloaderValues(true, 'Идёт загрузка карточек...');
+    setTimeout(handleSubmitSearchForm, 2000, values.userText, type)
+  }
+
+
 
   return (
     <section className="search">
-      <form div className="search__box">
-        <img className="search__icon" src={searchIcon} alt="иконка поиска" />
-        <input
-          className="search__input"
-          placeholder="Фильм"
-          type="text"
-          name="search"
-          autofocus
-          required
-        >
-        </input>
-        <button className="search__button" type="submit"></button>
+      <form className="search__box" onSubmit={handleSubmit} noValidate>
+      <img className="search__icon" src={searchIcon} alt="иконка поиска" />
+        <div className="search__form">
+          <input
+            className="search__input"
+            onBlur={handleFocus}
+            focused={focused.toString()}
+            placeholder={inputsSearch.placeholder}
+            value={values.userText}
+            onChange={onChange}
+            {...inputsSearch}
+            required
+          >
+          </input>
+          <span className={focused && (!values.userText) ? "search__error" : "search__label"}>
+            Нужно ввести ключевое слово
+          </span>
+        </div>
+        <button disabled={!formValid} className="search__button" type="submit"></button>
       </form>
 
       <div className="search__filter">
         <button
-          onClick={() => isCheckBox ? setIsCheckBox(false) : setIsCheckBox(true)}
+          onClick={handleCheckBox}
           className={`search__checkBox ${isCheckBox ? `search__checkBox_active` : ``}`}
           type="button"
         >

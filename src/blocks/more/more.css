@@ -1,0 +1,12 @@
+.more {
+  max-width: 1280px;
+  height: 100%;
+  padding: 0;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 425px) {
+  .more {
+    padding: 29px 0 33px;
+  }
+}

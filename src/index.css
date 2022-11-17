@@ -81,16 +81,25 @@
 
 @import url('./blocks/search/search.css');
 @import url('./blocks/search/__box/search__box.css');
+@import url('./blocks/search/__form/search__form.css');
 @import url('./blocks/search/__icon/search__icon.css');
 @import url('./blocks/search/__input/search__input.css');
+@import url('./blocks/search/__error/search__error.css');
+@import url('./blocks/search/__label/search__label.css');
 @import url('./blocks/search/__button/search__button.css');
 @import url('./blocks/search/__filter/search__filter.css');
 @import url('./blocks/search/__checkBox/search__checkBox.css');
 @import url('./blocks/search/__checkBox/_active/search__checkBox_active.css');
 @import url('./blocks/search/__nameBox/search__nameBox.css');
 
+@import url('./blocks/preloader/preloader.css');
+@import url('./blocks/preloader/__ring/ids-ring.css');
+@import url('./blocks/preloader/__ring/ids-ring_active.css');
+@import url('./blocks/preloader/__text/preloader__text.css');
+
 @import url('./blocks/moviesElements/moviesElements.css');
 @import url('./blocks/moviesElement/moviesElement.css');
+@import url('./blocks/moviesElement/__link/moviesElement__link.css');
 @import url('./blocks/moviesElement/__group/moviesElement__group.css');
 @import url('./blocks/moviesElement/__title/moviesElement__title.css');
 @import url('./blocks/moviesElement/__duration/moviesElement__duration.css');
@@ -99,9 +108,9 @@
 @import url('./blocks/moviesElement/__cross/moviesElement__cross.css');
 @import url('./blocks/moviesElement/__image/moviesElement__image.css');
 
-@import url('./blocks/preloader/preloader.css');
-@import url('./blocks/preloader/__button/preloader__button.css');
-@import url('./blocks/preloader/__name/preloader__name.css');
+@import url('./blocks/more/more.css');
+@import url('./blocks/more/__button/more__button.css');
+@import url('./blocks/more/__name/more__name.css');
 
 @import url('./blocks/profile/profile.css');
 @import url('./blocks/profile/__header/profile__header.css');
@@ -110,8 +119,11 @@
 @import url('./blocks/profile/__caption/profile__caption.css');
 @import url('./blocks/profile/__info/profile__info.css');
 @import url('./blocks/profile/__button/profile__button.css');
+@import url('./blocks/profile/__submit/profile__submit.css');
 @import url('./blocks/profile/__edit/profile__edit.css');
 @import url('./blocks/profile/__logout/profile__logout.css');
+@import url('./blocks/profile/__label/profile__label.css');
+@import url('./blocks/profile/__error/profile__error.css');
 
 @import url('./blocks/noborder/noborder.css');
 
@@ -122,8 +134,11 @@
 
 @import url('./blocks/form/form.css');
 @import url('./blocks/form/__main/form__main.css');
+@import url('./blocks/form/__box/form__box.css');
 @import url('./blocks/form/__text/form__text.css');
 @import url('./blocks/form/__input/form__input.css');
+@import url('./blocks/form/__label/form__label.css');
+@import url('./blocks/form/__error/form__error.css');
 @import url('./blocks/form/__input-error/form__input-error.css');
 @import url('./blocks/form/__footer/form__footer.css');
 @import url('./blocks/form/__button/form__button.css');
@@ -148,3 +163,10 @@
 @import url('./blocks/popup/__menu/popup__menu.css');
 @import url('./blocks/popup/__element/popup__element.css');
 @import url('./blocks/popup/_active/popup_active.css');
+
+@import url('./blocks/modalPopup/modalPopup.css');
+@import url('./blocks/modalPopup/_active/modalPopup_active.css');
+@import url('./blocks/modalPopup/__box/modalPopup__box.css');
+@import url('./blocks/modalPopup/__image/modalPopup__image.css');
+@import url('./blocks/modalPopup/__message/modalPopup__message.css');
+@import url('./blocks/modalPopup/__cross/modalPopup__cross.css');

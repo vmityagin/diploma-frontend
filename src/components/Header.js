@@ -3,11 +3,11 @@ import header__logo from '../images/header__logo.svg';
 import header__account_icon from '../images/header__account_icon.svg';
 import nav__hamburger from '../images/nav__hamburger.svg';
 
-function Header({ handleSignOut, isLoggedIn, onClick}) {
+function Header({ loggedIn, onClick}) {
 
   return (
     <>
-      { !isLoggedIn ?
+      { !loggedIn ?
         <header className="header">
           <NavLink to="/">
             <img className="header__logo" src={header__logo} alt="логотип дипломной работы"/>
