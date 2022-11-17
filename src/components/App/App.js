@@ -304,7 +304,6 @@ function successChangeUserData(newData) {
       apiMoviesUser.loadUserCardMovies()
         .then((movies) => {
           setInitialSavedMoviesApi(movies.data.filter(movie => movie.owner === currentUser.data._id));
-          setSavedMovies(movies.data.filter(movie => movie.owner === currentUser.data._id));
         })
         .catch((err) => {
           console.log(err);
@@ -379,6 +378,7 @@ function successChangeUserData(newData) {
         .then((message) => {
           const searchIndex = savedMovies.indexOf(savedMovies.find((movie) => Number(movie.movieId) === card.id));
           setSavedMovies([...savedMovies.slice(0,searchIndex), ...savedMovies.slice(searchIndex + 1)]);
+          setInitialSavedMoviesApi([...savedMovies.slice(0,searchIndex), ...savedMovies.slice(searchIndex + 1)]);
         })
         .catch((err) => {
           if(err.includes('401')) {
@@ -394,6 +394,7 @@ function successChangeUserData(newData) {
     apiMoviesUser.savedMovieInUserList(card)
         .then((res) => {
           setSavedMovies([...savedMovies, res.data]);
+          setInitialSavedMoviesApi([...savedMovies, res.data]);
         })
         .catch((err) => {
           if(err.includes('401')) {
@@ -410,6 +411,7 @@ function successChangeUserData(newData) {
     apiMoviesUser.deleteMovieFromUserList(card._id)
       .then((message) => {
         setSavedMovies([...savedMovies.slice(0,index), ...savedMovies.slice(index + 1)]);
+        setInitialSavedMoviesApi([...savedMovies.slice(0,index), ...savedMovies.slice(index + 1)]);
       })
       .catch((err) => {
         if(err.includes('401')) {
